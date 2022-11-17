@@ -1,5 +1,5 @@
 {
-  "name": "package-template",
+  "name": "yup-intl-validator",
   "version": "1.1.0",
   "description": "A template used to create TypeScript packages.",
   "main": "./dist/esm/index.js",
@@ -16,7 +16,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jordanmonier/package-template.git"
+    "url": "git+https://github.com/jordanmonier/yup-intl-validator.git"
   },
   "keywords": [
     "typescript",
@@ -28,9 +28,9 @@
   },
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/jordanmonier/package-template/issues"
+    "url": "https://github.com/jordanmonier/yup-intl-validator/issues"
   },
-  "homepage": "https://github.com/jordanmonier/package-template#readme",
+  "homepage": "https://github.com/jordanmonier/yup-intl-validator#readme",
   "exports": {
     ".": {
       "import": "./dist/esm/index.js",
