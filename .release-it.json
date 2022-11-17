@@ -1,0 +1,28 @@
+{
+  "hooks": {
+    "before:init": ["npm run lint", "npm run test"],
+    "after:bump": ["rm -rf ./dist", "npm run build:cjs", "npm run build:esm"]
+  },
+  "git": {
+    "commit": true,
+    "commitMessage": "chore: release v${version}",
+    "commitArgs": ["--no-verify"],
+    "tag": true,
+    "tagName": null,
+    "tagAnnotation": "Release v${version}",
+    "tagArgs": []
+  },
+  "github": {
+    "release": true,
+    "releaseName": "Release v${version}"
+  },
+  "npm": {
+    "publish": false
+  },
+  "plugins": {
+    "@release-it/conventional-changelog": {
+      "preset": "conventionalcommits",
+      "infile": "CHANGELOG.md"
+    }
+  }
+}
