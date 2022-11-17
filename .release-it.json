@@ -17,7 +17,7 @@
     "releaseName": "Release v${version}"
   },
   "npm": {
-    "publish": false
+    "publish": true
   },
   "plugins": {
     "@release-it/conventional-changelog": {
