@@ -1,5 +1,12 @@
 
 
+## 1.1.0 (2022-11-17)
+
+
+### Features
+
+* added default file from old library ([3cb97c3](https://github.com/jordanmonier/package-template/commit/3cb97c3ea279f0db824fc02257629db8d1b318a1))
+
 ## 1.0.1 (2022-11-17)
 
 
