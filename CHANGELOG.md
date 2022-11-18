@@ -1,5 +1,14 @@
 
 
+## [1.1.1](https://github.com/jordanmonier/yup-intl-validator/compare/1.1.0...1.1.1) (2022-11-18)
+
+
+### Bug Fixes
+
+* changed package and repo name ([9847a49](https://github.com/jordanmonier/yup-intl-validator/commit/9847a49edc53d94f094f2670949bce9e376eb94c))
+* enabled npm publish ([26c40e3](https://github.com/jordanmonier/yup-intl-validator/commit/26c40e331e3d5a98a32bf66defc47bf34a123882))
+* fix intl types ([4b922cc](https://github.com/jordanmonier/yup-intl-validator/commit/4b922ccab07e300ff41499a86a92f35e236bc5ba))
+
 ## 1.1.0 (2022-11-17)
 
 
