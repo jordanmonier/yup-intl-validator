@@ -71,9 +71,10 @@ const SCHEMAS: [
   ],
 ]
 
-describe('Date validation', () => {
+describe('date validation', () => {
+  // eslint-disable-next-line jest/prefer-each
   for (const [name, schema, valid, invalid] of SCHEMAS) {
-    // eslint-disable-next-line jest/valid-title
+    // eslint-disable-next-line jest/valid-title, jest/prefer-expect-assertions
     it(name, () => {
       for (const value of valid) {
         expect(schema.isValidSync(value)).toBe(true)
@@ -85,6 +86,7 @@ describe('Date validation', () => {
     })
   }
 
+  // eslint-disable-next-line jest/prefer-expect-assertions
   it('changing times on timezone (utc)', () => {
     const schema = date.schema(
       i18n.DEFAULT_INTL,
@@ -98,6 +100,7 @@ describe('Date validation', () => {
     expect(schema.cast('1998-01-14T00:00:00.000Z')?.toISOString()).toBe('1998-01-14T23:59:59.999Z')
   })
 
+  // eslint-disable-next-line jest/prefer-expect-assertions
   it('changing times on timezone', () => {
     const schema = date.schema(
       i18n.DEFAULT_INTL,

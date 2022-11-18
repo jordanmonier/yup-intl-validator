@@ -10,15 +10,15 @@ export type TReferenceProps<T extends Maybe<object>> = {
   [key in keyof T]: T[key] extends Maybe<object> ? TReferenceProps<T[key]> : TReference<T[key]>
 }
 
-export type TValidatorResult<
-  S extends yup.AnySchema,
-  Intl extends IIntlShapeRich = IIntlShapeRich
-> = (schema: S, intl: Intl) => S
+export type TValidatorResult<S extends yup.AnySchema, Intl> = (
+  schema: S,
+  intl: IIntlShapeRich<Intl>
+) => S
 
-export type TValidator<
-  S extends yup.AnySchema,
-  Intl extends IIntlShapeRich = IIntlShapeRich
-> = () => TValidatorResult<S, Intl>
+export type TValidator<S extends yup.AnySchema, Intl> = () => TValidatorResult<
+  S,
+  IIntlShapeRich<Intl>
+>
 
 export interface IProps {
   /**

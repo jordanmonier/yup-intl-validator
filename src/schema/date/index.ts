@@ -4,8 +4,8 @@ import { IIntlShapeRich } from '../../i18n/placeholder'
 
 import { TDateValidatorResult } from './_types'
 
-export const schema = <Intl extends IIntlShapeRich = IIntlShapeRich>(
-  intl: Intl,
+export const schema = <Intl>(
+  intl: IIntlShapeRich<Intl>,
   ...validators: TDateValidatorResult<Intl>[]
 ): yup.DateSchema => {
   let value = yup

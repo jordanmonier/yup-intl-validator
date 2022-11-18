@@ -121,6 +121,7 @@ const SCHEMAS: [
         ),
         confirmPassword: yup.mixed().when('password', {
           is: (value?: string) => value && value.length > 0,
+          // eslint-disable-next-line unicorn/no-thenable
           then: string.schema(
             i18n.DEFAULT_INTL,
             string.isRequired(),
@@ -167,9 +168,10 @@ const SCHEMAS: [
   ],
 ]
 
-describe('Object validation', () => {
+describe('object validation', () => {
+  // eslint-disable-next-line jest/prefer-each
   for (const [name, schema, valid, invalid] of SCHEMAS) {
-    // eslint-disable-next-line jest/valid-title
+    // eslint-disable-next-line jest/valid-title, jest/prefer-expect-assertions
     it(name, () => {
       for (const value of valid) {
         expect(schema.isValidSync(value)).toBe(true)
@@ -181,6 +183,7 @@ describe('Object validation', () => {
     })
   }
 
+  // eslint-disable-next-line jest/prefer-expect-assertions
   it('default to null', () => {
     expect(
       object

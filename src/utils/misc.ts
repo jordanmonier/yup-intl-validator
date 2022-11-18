@@ -38,7 +38,7 @@ export const parseValue = <T>(
   }
 
   if (Array.isArray(value)) {
-    return value.map((e) => parseValue<T>(context, e)) as unknown as T
+    return value.map((e) => parseValue<T>(context, e as T)) as unknown as T
   }
 
   if (typeof value === 'object') {

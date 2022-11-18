@@ -56,9 +56,10 @@ const SCHEMAS: [
   ],
 ]
 
-describe('Boolean validation', () => {
+describe('boolean validation', () => {
+  // eslint-disable-next-line jest/prefer-each
   for (const [name, schema, valid, invalid] of SCHEMAS) {
-    // eslint-disable-next-line jest/valid-title
+    // eslint-disable-next-line jest/valid-title, jest/prefer-expect-assertions
     it(name, () => {
       for (const value of valid) {
         expect(schema.isValidSync(value)).toBe(true)
