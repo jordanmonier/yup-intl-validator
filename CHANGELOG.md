@@ -1,5 +1,12 @@
 
 
+## [1.1.2](https://github.com/jordanmonier/yup-intl-validator/compare/1.1.1...1.1.2) (2022-11-18)
+
+
+### Bug Fixes
+
+* added exports for locales ([72b18a7](https://github.com/jordanmonier/yup-intl-validator/commit/72b18a75381563400ea73f0996ce22be1efacb60))
+
 ## [1.1.1](https://github.com/jordanmonier/yup-intl-validator/compare/1.1.0...1.1.1) (2022-11-18)
 
 
