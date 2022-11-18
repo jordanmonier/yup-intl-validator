@@ -35,6 +35,10 @@
     ".": {
       "import": "./dist/esm/index.js",
       "require": "./dist/cjs/index.js"
+    },
+    "./locales/en.json": {
+      "import": "./locales/en.json",
+      "require": "./locales/en.json"
     }
   },
   "files": [
