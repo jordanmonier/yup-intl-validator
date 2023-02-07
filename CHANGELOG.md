@@ -1,5 +1,13 @@
 
 
+## [1.1.3](https://github.com/jordanmonier/yup-intl-validator/compare/1.1.2...1.1.3) (2023-02-07)
+
+
+### Bug Fixes
+
+* publishConfig set in package.json ([8fc289b](https://github.com/jordanmonier/yup-intl-validator/commit/8fc289baa0300bba9b9d8e4dfba1064042110094))
+* typings ([3457096](https://github.com/jordanmonier/yup-intl-validator/commit/3457096a5c7cbc4e3ff6c84190c6e0ff4a69bb50))
+
 ## [1.1.2](https://github.com/jordanmonier/yup-intl-validator/compare/1.1.1...1.1.2) (2022-11-18)
 
 
