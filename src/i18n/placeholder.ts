@@ -1,7 +1,7 @@
-import { createIntl, IntlFormatters, IntlShape, ResolvedIntlConfig } from '@formatjs/intl'
+import { createIntl, IntlShape } from '@formatjs/intl'
 
-export interface IIntlShapeRich<T = unknown> extends ResolvedIntlConfig, IntlFormatters<T> {
-  formatErrorMessage: IntlShape['formatMessage']
+export interface IIntlShapeRich<T = never> extends IntlShape<T> {
+  formatErrorMessage: IntlShape<T>['formatMessage']
 }
 
 const intl = createIntl({

@@ -4,8 +4,8 @@ import { IIntlShapeRich } from '../../i18n/placeholder'
 
 import { TStringValidatorResult } from './_types'
 
-export const schema = <Intl>(
-  intl: IIntlShapeRich<Intl>,
+export const schema = <Intl extends IIntlShapeRich>(
+  intl: Intl,
   ...validators: TStringValidatorResult<Intl>[]
 ): yup.StringSchema => {
   let value = yup

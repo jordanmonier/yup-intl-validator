@@ -7,8 +7,6 @@ import { Maybe } from 'yup/lib/types'
 import { TReferenceProps } from '../'
 import { IIntlShapeRich } from '../i18n/placeholder'
 
-export type TMessage = string | Parameters<IIntlShapeRich['formatMessage']>
-
 export const getValueFromContext = <T>(context: yup.TestContext, ref: Reference<T>): Maybe<T> => {
   return context.resolve(ref)
 }
