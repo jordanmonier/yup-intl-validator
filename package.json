@@ -18,6 +18,10 @@
     "type": "git",
     "url": "git+https://github.com/jordanmonier/yup-intl-validator.git"
   },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
+  },
   "keywords": [
     "typescript",
     "package"
