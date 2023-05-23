@@ -1,5 +1,12 @@
 
 
+## [1.1.4](https://github.com/jordanmonier/yup-intl-validator/compare/1.1.3...1.1.4) (2023-05-23)
+
+
+### Bug Fixes
+
+* updated validator ([6bf3e20](https://github.com/jordanmonier/yup-intl-validator/commit/6bf3e200c89de91bf4cac16b01f2e685b601005f))
+
 ## [1.1.3](https://github.com/jordanmonier/yup-intl-validator/compare/1.1.2...1.1.3) (2023-02-07)
 
 
