@@ -1,5 +1,12 @@
 
 
+## [1.1.5](https://github.com/jordanmonier/yup-intl-validator/compare/1.1.4...1.1.5) (2023-08-02)
+
+
+### Bug Fixes
+
+* **isPaymentReference:** regex to accept any non whitespace char ([a9aad5a](https://github.com/jordanmonier/yup-intl-validator/commit/a9aad5ae34ebc702f3037711cdd595395ab2a0fa))
+
 ## [1.1.4](https://github.com/jordanmonier/yup-intl-validator/compare/1.1.3...1.1.4) (2023-05-23)
 
 
