@@ -3,12 +3,12 @@ import { IStringProps, TStringValidatorResult } from '../_types'
 
 export interface IIsPaymentReferenceProps {
   /**
-   * Will only apply is the string starts with match `+++XXX/XXXX/XXXXX+++`
+   * Will only apply is the string match with `+++XXX/XXXX/XXXXX+++`
    */
   optional?: boolean
 }
 
-const REGEX = /^\+{3}\d{3}\/\d{4}\/\d{5}\+{3}$/
+const REGEX = /^\+{3}\S{3}\/\S{4}\/\S{5}\+{3}$/
 
 /**
  * Check if the string is a valid payment reference.
