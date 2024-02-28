@@ -62,8 +62,8 @@ export const parseReference = <T extends Maybe<object>>(
   return { ...(props as T), ...newValue }
 }
 
-export const formatMessageValues = (
-  values: Parameters<IIntlShapeRich['formatMessage']>[1]
-): Parameters<IIntlShapeRich['formatMessage']>[1] => {
+export const formatMessageValues = <Element = string>(
+  values: Parameters<IIntlShapeRich<Element>['formatMessage']>[1]
+): Parameters<IIntlShapeRich<Element>['formatMessage']>[1] => {
   return mapKeys(values, (v, k) => snakeCase(k))
 }

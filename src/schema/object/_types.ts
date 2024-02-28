@@ -6,12 +6,14 @@ import { IProps, TValidator, TValidatorResult } from '../../_types'
 
 export type TObjectValidatorResult<
   T extends ObjectShape = {},
-  Intl extends IIntlShapeRich = IIntlShapeRich
-> = TValidatorResult<yup.ObjectSchema<T>, Intl>
+  Element = string,
+  Intl extends IIntlShapeRich<Element> = IIntlShapeRich<Element>,
+> = TValidatorResult<yup.ObjectSchema<T>, Element, Intl>
 
 export type TObjectValidator<
   T extends ObjectShape = {},
-  Intl extends IIntlShapeRich = IIntlShapeRich
-> = TValidator<yup.ObjectSchema<T>, Intl>
+  Element = string,
+  Intl extends IIntlShapeRich<Element> = IIntlShapeRich<Element>,
+> = TValidator<yup.ObjectSchema<T>, Element, Intl>
 
 export interface IObjectProps extends IProps {}

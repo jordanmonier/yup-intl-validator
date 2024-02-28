@@ -4,9 +4,12 @@ import { IIntlShapeRich } from '../../i18n/placeholder'
 
 import { TBooleanValidatorResult } from './_types'
 
-export const schema = <Intl extends IIntlShapeRich = IIntlShapeRich>(
+export const schema = <
+  Element = string,
+  Intl extends IIntlShapeRich<Element> = IIntlShapeRich<Element>,
+>(
   intl: Intl,
-  ...validators: TBooleanValidatorResult<Intl>[]
+  ...validators: TBooleanValidatorResult<Element, Intl>[]
 ): yup.BooleanSchema => {
   let value = yup
     .boolean()

@@ -5,10 +5,14 @@ import { IIntlShapeRich } from '../../i18n/placeholder'
 
 import { TObjectValidatorResult } from './_types'
 
-export const schema = <T extends ObjectShape, Intl extends IIntlShapeRich = IIntlShapeRich>(
+export const schema = <
+  T extends ObjectShape,
+  Element = string,
+  Intl extends IIntlShapeRich<Element> = IIntlShapeRich<Element>,
+>(
   object: T,
   intl: Intl,
-  ...validators: TObjectValidatorResult<T, Intl>[]
+  ...validators: TObjectValidatorResult<T, Element, Intl>[]
 ): yup.ObjectSchema<T> => {
   // eslint-disable-next-line @typescript-eslint/no-unsafe-call
   let value = yup
@@ -28,12 +32,13 @@ export const schema = <T extends ObjectShape, Intl extends IIntlShapeRich = IInt
 
 export const schemaExcludes = <
   T extends ObjectShape = {},
-  Intl extends IIntlShapeRich = IIntlShapeRich
+  Element = string,
+  Intl extends IIntlShapeRich<Element> = IIntlShapeRich<Element>,
 >(
   object: T,
   excludes: [string, string][],
   intl: Intl,
-  ...validators: TObjectValidatorResult<T, Intl>[]
+  ...validators: TObjectValidatorResult<T, Element, Intl>[]
 ): yup.ObjectSchema<T> => {
   // eslint-disable-next-line @typescript-eslint/no-unsafe-call
   let value = yup

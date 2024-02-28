@@ -3,14 +3,14 @@ import { IIntlShapeRich } from '../../i18n/placeholder'
 
 import { IProps, TValidator, TValidatorResult } from '../../_types'
 
-export type TStringValidatorResult<Intl extends IIntlShapeRich = IIntlShapeRich> = TValidatorResult<
-  yup.StringSchema,
-  Intl
->
+export type TStringValidatorResult<
+  Element = string,
+  Intl extends IIntlShapeRich<Element> = IIntlShapeRich<Element>,
+> = TValidatorResult<yup.StringSchema, Element, Intl>
 
-export type TStringValidator<Intl extends IIntlShapeRich = IIntlShapeRich> = TValidator<
-  yup.StringSchema,
-  Intl
->
+export type TStringValidator<
+  Element,
+  Intl extends IIntlShapeRich<Element> = IIntlShapeRich<Element>,
+> = TValidator<yup.StringSchema, Element, Intl>
 
 export interface IStringProps extends IProps {}

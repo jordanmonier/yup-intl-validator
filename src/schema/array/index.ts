@@ -4,10 +4,14 @@ import { IIntlShapeRich } from '../../i18n/placeholder'
 
 import { TArrayValidatorResult } from './_types'
 
-export const schema = <T extends yup.AnySchema, Intl extends IIntlShapeRich = IIntlShapeRich>(
+export const schema = <
+  T extends yup.AnySchema,
+  Element = string,
+  Intl extends IIntlShapeRich<Element> = IIntlShapeRich<Element>,
+>(
   array: T,
   intl: Intl,
-  ...validators: TArrayValidatorResult<T, Intl>[]
+  ...validators: TArrayValidatorResult<T, Element, Intl>[]
 ): yup.ArraySchema<T> => {
   let value = yup
     .array<T>(array)
