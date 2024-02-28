@@ -1,5 +1,12 @@
 
 
+## [1.1.8](https://github.com/jordanmonier/yup-intl-validator/compare/1.1.7...1.1.8) (2024-02-28)
+
+
+### Bug Fixes
+
+* better typings for elements returned by intl ([e7d7b6c](https://github.com/jordanmonier/yup-intl-validator/commit/e7d7b6c18007c57247ea323f3cee2e014edaf74f))
+
 ## [1.1.7](https://github.com/jordanmonier/yup-intl-validator/compare/1.1.6...1.1.7) (2023-08-25)
 
 
