@@ -1,8 +1,7 @@
 import mapKeys from 'lodash.mapkeys'
 import snakeCase from 'lodash.snakecase'
 import * as yup from 'yup'
-import Reference from 'yup/lib/Reference'
-import { Maybe } from 'yup/lib/types'
+import type { Reference, Maybe } from 'yup'
 
 import { TReferenceProps } from '../'
 import { IIntlShapeRich } from '../i18n/placeholder'
@@ -15,10 +14,7 @@ export const parseValue = <T>(
   context: yup.TestContext,
   value: Reference<T> | Maybe<T>
 ): Maybe<T> => {
-  if (
-    value instanceof Reference ||
-    (typeof value === 'object' && (value as unknown as object).hasOwnProperty('getter'))
-  ) {
+  if ((value as any)?.__isYupRef === true) {
     return getValueFromContext(context, value as Reference<T>)
   }
 

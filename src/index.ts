@@ -12,4 +12,4 @@ export * as string from './schema/string/index'
 
 export * as yup from 'yup'
 
-export { ObjectShape } from 'yup/lib/object'
+export type { ObjectShape } from 'yup'

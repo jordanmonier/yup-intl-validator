@@ -4,9 +4,9 @@ import { array, i18n, number, object, string } from '../../index'
 
 const SCHEMAS: [
   name: string,
-  schema: ReturnType<typeof object['schema']>,
+  schema: ReturnType<(typeof object)['schema']>,
   valid: unknown[],
-  invalid: unknown[]
+  invalid: unknown[],
 ][] = [
   [
     'isRequired',
@@ -122,32 +122,37 @@ const SCHEMAS: [
         confirmPassword: yup.mixed().when('password', {
           is: (value?: string) => value && value.length > 0,
           // eslint-disable-next-line unicorn/no-thenable
-          then: string.schema(
-            i18n.DEFAULT_INTL,
-            string.isRequired(),
-            string.isEqualTo({ values: [yup.ref('password')], message: 'e.form.confirm_password' })
-          ),
-          otherwise: string.schema(
-            i18n.DEFAULT_INTL,
-            string.isRequired(),
-            string.isLength({
-              min: 8,
-              max: 16,
-              message: 'e.form.password_length',
-            }),
-            string.doesContain({
-              values: /\d/,
-              message: 'e.form.password_must_contain_number',
-            }),
-            string.doesContain({
-              values: /[a-z]/,
-              message: 'e.form.password_must_contain_lowercased_character',
-            }),
-            string.doesContain({
-              values: /[A-Z]/,
-              message: 'e.form.password_must_contain_uppercased_character',
-            })
-          ),
+          then: () =>
+            string.schema(
+              i18n.DEFAULT_INTL,
+              string.isRequired(),
+              string.isEqualTo({
+                values: [yup.ref('password')],
+                message: 'e.form.confirm_password',
+              })
+            ),
+          otherwise: () =>
+            string.schema(
+              i18n.DEFAULT_INTL,
+              string.isRequired(),
+              string.isLength({
+                min: 8,
+                max: 16,
+                message: 'e.form.password_length',
+              }),
+              string.doesContain({
+                values: /\d/,
+                message: 'e.form.password_must_contain_number',
+              }),
+              string.doesContain({
+                values: /[a-z]/,
+                message: 'e.form.password_must_contain_lowercased_character',
+              }),
+              string.doesContain({
+                values: /[A-Z]/,
+                message: 'e.form.password_must_contain_uppercased_character',
+              })
+            ),
         }),
       },
       i18n.DEFAULT_INTL,
