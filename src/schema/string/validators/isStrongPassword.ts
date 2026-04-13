@@ -4,7 +4,7 @@ import { parseReference, type TReferenceProps } from "../../..";
 import type { IStringProps, TStringValidatorResult } from "../_types";
 
 export interface IIsStrongPasswordProps {
-  options?: validator.default.StrongPasswordOptions;
+  options?: validator.StrongPasswordOptions;
 }
 
 /**

@@ -15,7 +15,7 @@ export const isNullable = <T extends yup.AnySchema>(
 
   return (schema, intl) => {
     if (active) {
-      schema = schema.nullable() as yup.ArraySchema<T>;
+      schema = schema.nullable() as yup.ArraySchema<any, any>;
     }
 
     return schema;

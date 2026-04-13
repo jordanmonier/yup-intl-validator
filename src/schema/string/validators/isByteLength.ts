@@ -37,7 +37,7 @@ export const isByteLength = (
             : this.createError({
                 message: intl.formatErrorMessage(
                   { id: message ?? "e.y_v.s_must_be_byte_length" },
-                  { ...options }
+                  { ...(typeof options === 'object' ? options : {}) }
                 ),
               });
         },

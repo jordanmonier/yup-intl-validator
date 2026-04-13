@@ -15,7 +15,7 @@ export const isOptional = <T extends yup.AnySchema>(
 
   return (schema, intl) => {
     if (active) {
-      schema = schema.optional() as yup.ArraySchema<T>;
+      schema = schema.optional() as yup.ArraySchema<any, any>;
     }
 
     return schema;

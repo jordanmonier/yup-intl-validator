@@ -1,5 +1,5 @@
 import * as yup from "yup";
-import type { ObjectShape } from "yup/lib/object";
+import type { ObjectShape } from "yup";
 
 import type { IIntlShapeRich } from "../../i18n/placeholder";
 
@@ -21,7 +21,7 @@ export const schema = <
     .typeError(intl.formatErrorMessage({ id: "e.y_v.o_type_error" }))
     .default(null)
     .nullable()
-    .strict() as yup.ObjectSchema<T>;
+    .strict() as unknown as yup.ObjectSchema<T>;
 
   for (const validator of validators) {
     value = validator(value, intl);
@@ -47,7 +47,7 @@ export const schemaExcludes = <
     .typeError(intl.formatErrorMessage({ id: "e.y_v.o_type_error" }))
     .default(null)
     .nullable()
-    .strict() as yup.ObjectSchema<T>;
+    .strict() as unknown as yup.ObjectSchema<T>;
 
   for (const validator of validators) {
     value = validator(value, intl);

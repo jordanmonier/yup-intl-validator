@@ -1,8 +1,9 @@
 {
   "compilerOptions": {
     "lib": ["DOM", "ES2020", "ESNext"],
-    "target": "es5",
+    "target": "ES2017",
     "module": "commonjs",
+    "rootDir": "./src",
     "outDir": "./dist/cjs",
     "strict": true,
     "declaration": true,
@@ -13,5 +14,5 @@
     "typeRoots": ["@types", "./node_modules/@types"]
   },
   "include": ["src"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", "**/*.test.ts", "**/*.spec.ts"]
 }

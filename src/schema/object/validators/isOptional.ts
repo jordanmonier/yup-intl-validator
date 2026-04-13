@@ -1,4 +1,5 @@
-import type { ObjectShape } from "yup/lib/object";
+import type * as yup from "yup";
+import type { ObjectShape } from "yup";
 
 import type { TReferenceProps } from "../../..";
 import type { IObjectProps, TObjectValidatorResult } from "../_types";
@@ -16,7 +17,7 @@ export const isOptional = <T extends ObjectShape = {}>(
   return (schema, intl) => {
     if (active) {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-      return schema.optional();
+      return schema.optional() as unknown as yup.ObjectSchema<T>;
     }
 
     return schema;

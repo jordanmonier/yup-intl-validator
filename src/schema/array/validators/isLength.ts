@@ -45,7 +45,7 @@ export const isLength = <T extends yup.AnySchema>(
   return (schema, intl) => {
     if (active) {
       return schema.test({
-        test(value) {
+        test(value: unknown) {
           if (!Array.isArray(value)) {
             return true;
           }

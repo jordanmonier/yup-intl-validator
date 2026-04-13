@@ -37,7 +37,7 @@ export const isIP = (
             : this.createError({
                 message: intl.formatErrorMessage(
                   { id: message ?? "e.y_v.s_must_be_an_ip" },
-                  { version }
+                  { version: typeof version !== 'object' ? version : undefined }
                 ),
               });
         },

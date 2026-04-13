@@ -40,9 +40,10 @@ export const isEmail = (
                   {
                     ...options,
                     host_blacklist: options?.host_blacklist
-                      ? intl.formatList(options.host_blacklist)
+                      ? intl.formatList(options.host_blacklist.filter((v): v is string => typeof v === 'string'))
                       : undefined,
-                  }
+                    host_whitelist: undefined,
+                  } as Record<string, string | number | boolean | null | undefined>
                 ),
               });
         },

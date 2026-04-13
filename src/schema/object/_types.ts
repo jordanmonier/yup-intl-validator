@@ -1,5 +1,5 @@
 import type * as yup from "yup";
-import type { ObjectShape } from "yup/lib/object";
+import type { ObjectShape } from "yup";
 import type { IProps, TValidator, TValidatorResult } from "../../_types";
 import type { IIntlShapeRich } from "../../i18n/placeholder";
 

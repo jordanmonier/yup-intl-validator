@@ -13,7 +13,7 @@ export const isOptional = (
 
   return (schema, intl) => {
     if (active) {
-      schema = schema.optional();
+      schema = schema.optional() as unknown as typeof schema;
     }
 
     return schema;

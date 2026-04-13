@@ -6,12 +6,12 @@ export type TArrayValidatorResult<
   T extends yup.AnySchema,
   Element = string,
   Intl extends IIntlShapeRich<Element> = IIntlShapeRich<Element>,
-> = TValidatorResult<yup.ArraySchema<T>, Element, Intl>;
+> = TValidatorResult<yup.ArraySchema<any, any>, Element, Intl>;
 
 export type TArrayValidator<
   T extends yup.AnySchema,
   Element = string,
   Intl extends IIntlShapeRich<Element> = IIntlShapeRich<Element>,
-> = TValidator<yup.ArraySchema<T>, Element, Intl>;
+> = TValidator<yup.ArraySchema<any, any>, Element, Intl>;
 
 export interface IArrayProps extends IProps {}

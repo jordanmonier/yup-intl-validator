@@ -1,6 +1,5 @@
 import type * as yup from "yup";
-import type Reference from "yup/lib/Reference";
-import type { Maybe } from "yup/lib/types";
+import type { Reference, Maybe } from "yup";
 
 import type { IIntlShapeRich } from "./i18n/placeholder";
 

@@ -15,7 +15,7 @@ export const isTrue = (
     if (active) {
       schema = schema.isTrue(
         intl.formatErrorMessage({ id: message ?? "e.y_v.b_is_true" })
-      );
+      ) as unknown as typeof schema;
     }
 
     return schema;

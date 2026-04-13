@@ -12,7 +12,7 @@ export const schema = <
   array: T,
   intl: Intl,
   ...validators: TArrayValidatorResult<T, Element, Intl>[]
-): yup.ArraySchema<T> => {
+): yup.ArraySchema<any, any> => {
   let value = yup
     .array<T>(array)
     .typeError(intl.formatErrorMessage({ id: "e.y_v.a_type_error" }))
@@ -20,7 +20,7 @@ export const schema = <
     .nullable()
     // eslint-disable-next-line @typescript-eslint/no-unsafe-return
     .transform((v) => (v === null ? [] : v))
-    .strict() as yup.ArraySchema<T>;
+    .strict() as unknown as yup.ArraySchema<any, any>;
 
   for (const validator of validators) {
     value = validator(value, intl);

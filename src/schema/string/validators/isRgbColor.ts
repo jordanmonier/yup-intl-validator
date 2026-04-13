@@ -40,7 +40,7 @@ export const isRgbColor = (
             : this.createError({
                 message: intl.formatErrorMessage(
                   { id: message ?? "e.y_v.s_must_be_a_rgb_color" },
-                  { include_percent_values: includePercentValues }
+                  { include_percent_values: typeof includePercentValues !== 'object' ? includePercentValues : undefined }
                 ),
               });
         },

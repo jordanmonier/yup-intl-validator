@@ -44,8 +44,8 @@ export const isDate = (
                 message: intl.formatErrorMessage(
                   { id: message ?? "e.y_v.s_must_be_a_date" },
                   {
-                    ...options,
-                    delimiters: options?.delimiters
+                    ...(typeof options === 'object' ? options : {}),
+                    delimiters: typeof options === 'object' && options?.delimiters
                       ? intl.formatList(options.delimiters)
                       : undefined,
                   }

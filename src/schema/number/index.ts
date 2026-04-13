@@ -15,7 +15,7 @@ export const schema = <
     .number()
     .typeError(intl.formatErrorMessage({ id: "e.y_v.n_type_error" }))
     .default(null)
-    .nullable() as yup.NumberSchema;
+    .nullable() as unknown as yup.NumberSchema;
 
   for (const validator of validators) {
     value = validator(value, intl);

@@ -15,10 +15,10 @@ export const schema = <
     .boolean()
     .typeError(intl.formatErrorMessage({ id: "e.y_v.b_type_error" }))
     .default(false)
-    .transform((v) => !!v);
+    .transform((v) => !!v) as unknown as yup.BooleanSchema<boolean>;
 
   for (const validator of validators) {
-    value = validator(value, intl);
+    value = validator(value, intl) as yup.BooleanSchema<boolean>;
   }
 
   return value;
