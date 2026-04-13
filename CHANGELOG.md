@@ -1,4 +1,14 @@
+# Changelog
 
+## [1.2.0](https://github.com/jordanmonier/yup-intl-validator/compare/1.1.8...1.2.0) (2026-04-13)
+
+### Features
+
+* update dependencies, improve localization messages, and refine type exports ([2968a69](https://github.com/jordanmonier/yup-intl-validator/commit/2968a698cd74e0211f0318bde42e5e9900ae7fe4))
+
+### Bug Fixes
+
+* a lot of types errors ([9dfaabe](https://github.com/jordanmonier/yup-intl-validator/commit/9dfaabe4d9ca5fa19b4f3b6acec1191b98b61fd7))
 
 ## [1.1.8](https://github.com/jordanmonier/yup-intl-validator/compare/1.1.7...1.1.8) (2024-02-28)
 
