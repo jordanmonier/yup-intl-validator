@@ -1,8 +1,8 @@
-import * as yup from 'yup'
+import * as yup from "yup";
 
-import { IIntlShapeRich } from '../../i18n/placeholder'
+import type { IIntlShapeRich } from "../../i18n/placeholder";
 
-import { TBooleanValidatorResult } from './_types'
+import type { TBooleanValidatorResult } from "./_types";
 
 export const schema = <
   Element = string,
@@ -13,23 +13,23 @@ export const schema = <
 ): yup.BooleanSchema => {
   let value = yup
     .boolean()
-    .typeError(intl.formatErrorMessage({ id: 'e.y_v.b_type_error' }))
+    .typeError(intl.formatErrorMessage({ id: "e.y_v.b_type_error" }))
     .default(false)
-    .transform((v) => !!v)
+    .transform((v) => !!v);
 
   for (const validator of validators) {
-    value = validator(value, intl)
+    value = validator(value, intl);
   }
 
-  return value
-}
+  return value;
+};
 
-export * from './_types'
+export * from "./_types";
 
-export * from './validators/isDifferentThan'
-export * from './validators/isEqualTo'
-export * from './validators/isFalse'
-export * from './validators/isNullable'
-export * from './validators/isOptional'
-export * from './validators/isRequired'
-export * from './validators/isTrue'
+export * from "./validators/isDifferentThan";
+export * from "./validators/isEqualTo";
+export * from "./validators/isFalse";
+export * from "./validators/isNullable";
+export * from "./validators/isOptional";
+export * from "./validators/isRequired";
+export * from "./validators/isTrue";

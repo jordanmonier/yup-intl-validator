@@ -1,39 +1,43 @@
-import * as yup from 'yup'
+import * as yup from "yup";
 
-import { array, i18n, number, object, string } from '../../index'
+import { array, i18n, number, object, string } from "../../index";
 
 const SCHEMAS: [
   name: string,
-  schema: ReturnType<(typeof object)['schema']>,
+  schema: ReturnType<(typeof object)["schema"]>,
   valid: unknown[],
   invalid: unknown[],
 ][] = [
   [
-    'isRequired',
+    "isRequired",
     object.schema({}, i18n.DEFAULT_INTL, object.isRequired()),
     [{}, { a: 1 }],
     [null, undefined],
   ],
   [
-    '!isRequired',
+    "!isRequired",
     object.schema({}, i18n.DEFAULT_INTL, object.isRequired({ active: false })),
     [{}, { a: 1 }, null, undefined],
     [],
   ],
   [
-    '1 field',
+    "1 field",
     object.schema(
       {
-        email: string.schema(i18n.DEFAULT_INTL, string.isRequired(), string.isEmail()),
+        email: string.schema(
+          i18n.DEFAULT_INTL,
+          string.isRequired(),
+          string.isEmail()
+        ),
       },
       i18n.DEFAULT_INTL,
       object.isRequired()
     ),
-    [{ email: 'coucou@eapc.be' }],
+    [{ email: "coucou@eapc.be" }],
     [{}],
   ],
   [
-    '2 fields with ref (isWhitelisted)',
+    "2 fields with ref (isWhitelisted)",
     object.schema(
       {
         whitelist: string.schema(i18n.DEFAULT_INTL, string.isRequired()),
@@ -41,7 +45,7 @@ const SCHEMAS: [
           i18n.DEFAULT_INTL,
           string.isRequired(),
           string.isWhitelisted({
-            chars: yup.ref('whitelist'),
+            chars: yup.ref("whitelist"),
           })
         ),
       },
@@ -50,23 +54,23 @@ const SCHEMAS: [
     ),
     [
       {
-        whitelist: 'abc',
-        value: 'abc',
+        whitelist: "abc",
+        value: "abc",
       },
       {
-        whitelist: 'abc',
-        value: 'ac',
+        whitelist: "abc",
+        value: "ac",
       },
     ],
     [
       {
-        whitelist: 'abc',
-        value: 'd',
+        whitelist: "abc",
+        value: "d",
       },
     ],
   ],
   [
-    '2 fields with ref (isEqualTo)',
+    "2 fields with ref (isEqualTo)",
     object.schema(
       {
         whitelist: string.schema(i18n.DEFAULT_INTL, string.isRequired()),
@@ -74,7 +78,7 @@ const SCHEMAS: [
           i18n.DEFAULT_INTL,
           string.isRequired(),
           string.isEqualTo({
-            values: [yup.ref('whitelist')],
+            values: [yup.ref("whitelist")],
           })
         ),
       },
@@ -83,19 +87,19 @@ const SCHEMAS: [
     ),
     [
       {
-        whitelist: 'abc',
-        value: 'abc',
+        whitelist: "abc",
+        value: "abc",
       },
     ],
     [
       {
-        whitelist: 'abc',
-        value: 'abcd',
+        whitelist: "abc",
+        value: "abcd",
       },
     ],
   ],
   [
-    'password',
+    "password",
     object.schema(
       {
         password: string.schema(
@@ -104,22 +108,22 @@ const SCHEMAS: [
           string.isLength({
             min: 8,
             max: 16,
-            message: 'e.form.password_length',
+            message: "e.form.password_length",
           }),
           string.doesContain({
             values: /\d/,
-            message: 'e.form.password_must_contain_number',
+            message: "e.form.password_must_contain_number",
           }),
           string.doesContain({
             values: /[a-z]/,
-            message: 'e.form.password_must_contain_lowercased_character',
+            message: "e.form.password_must_contain_lowercased_character",
           }),
           string.doesContain({
             values: /[A-Z]/,
-            message: 'e.form.password_must_contain_uppercased_character',
+            message: "e.form.password_must_contain_uppercased_character",
           })
         ),
-        confirmPassword: yup.mixed().when('password', {
+        confirmPassword: yup.mixed().when("password", {
           is: (value?: string) => value && value.length > 0,
           // eslint-disable-next-line unicorn/no-thenable
           then: () =>
@@ -127,8 +131,8 @@ const SCHEMAS: [
               i18n.DEFAULT_INTL,
               string.isRequired(),
               string.isEqualTo({
-                values: [yup.ref('password')],
-                message: 'e.form.confirm_password',
+                values: [yup.ref("password")],
+                message: "e.form.confirm_password",
               })
             ),
           otherwise: () =>
@@ -138,19 +142,19 @@ const SCHEMAS: [
               string.isLength({
                 min: 8,
                 max: 16,
-                message: 'e.form.password_length',
+                message: "e.form.password_length",
               }),
               string.doesContain({
                 values: /\d/,
-                message: 'e.form.password_must_contain_number',
+                message: "e.form.password_must_contain_number",
               }),
               string.doesContain({
                 values: /[a-z]/,
-                message: 'e.form.password_must_contain_lowercased_character',
+                message: "e.form.password_must_contain_lowercased_character",
               }),
               string.doesContain({
                 values: /[A-Z]/,
-                message: 'e.form.password_must_contain_uppercased_character',
+                message: "e.form.password_must_contain_uppercased_character",
               })
             ),
         }),
@@ -160,36 +164,36 @@ const SCHEMAS: [
     ),
     [
       {
-        password: 'Test1234',
-        confirmPassword: 'Test1234',
+        password: "Test1234",
+        confirmPassword: "Test1234",
       },
     ],
     [
       {
-        password: 'Test1234',
-        confirmPassword: 'Test1234!',
+        password: "Test1234",
+        confirmPassword: "Test1234!",
       },
     ],
   ],
-]
+];
 
-describe('object validation', () => {
+describe("object validation", () => {
   // eslint-disable-next-line jest/prefer-each
   for (const [name, schema, valid, invalid] of SCHEMAS) {
     // eslint-disable-next-line jest/valid-title, jest/prefer-expect-assertions
     it(name, () => {
       for (const value of valid) {
-        expect(schema.isValidSync(value)).toBe(true)
+        expect(schema.isValidSync(value)).toBe(true);
       }
 
       for (const value of invalid) {
-        expect(schema.isValidSync(value)).toBe(false)
+        expect(schema.isValidSync(value)).toBe(false);
       }
-    })
+    });
   }
 
   // eslint-disable-next-line jest/prefer-expect-assertions
-  it('default to null', () => {
+  it("default to null", () => {
     expect(
       object
         .schema(
@@ -201,7 +205,10 @@ describe('object validation', () => {
               i18n.DEFAULT_INTL
             ),
             test: number.schema(i18n.DEFAULT_INTL),
-            testArr: array.schema(number.schema(i18n.DEFAULT_INTL), i18n.DEFAULT_INTL),
+            testArr: array.schema(
+              number.schema(i18n.DEFAULT_INTL),
+              i18n.DEFAULT_INTL
+            ),
           },
           i18n.DEFAULT_INTL,
           object.isRequired()
@@ -214,6 +221,6 @@ describe('object validation', () => {
       digitalFile: null,
       test: null,
       testArr: [],
-    })
-  })
-})
+    });
+  });
+});

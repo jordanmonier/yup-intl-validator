@@ -1,15 +1,15 @@
-import _isWhitelisted from 'validator/lib/isWhitelisted'
+import _isWhitelisted from "validator/lib/isWhitelisted";
 
-import { parseReference, TReferenceProps } from '../../..'
-import { IStringProps, TStringValidatorResult } from '../_types'
+import { parseReference, type TReferenceProps } from "../../..";
+import type { IStringProps, TStringValidatorResult } from "../_types";
 
-type TParameters = Parameters<typeof _isWhitelisted>
+type TParameters = Parameters<typeof _isWhitelisted>;
 
 export interface IIsWhitelistedProps {
   /**
    * Whitelist, can be either a string or an array of strings.
    */
-  chars: TParameters[1]
+  chars: TParameters[1];
 }
 
 /**
@@ -18,32 +18,36 @@ export interface IIsWhitelistedProps {
 export const isWhitelisted = (
   props: TReferenceProps<IIsWhitelistedProps> & IStringProps
 ): TStringValidatorResult => {
-  const { active = true, message } = props ?? {}
+  const { active = true, message } = props ?? {};
 
   return (schema, intl) => {
     if (active) {
       schema = schema.test({
         test(value) {
-          if (typeof value !== 'string') return true
+          if (typeof value !== "string") {
+            return true;
+          }
 
-          const { chars } = parseReference<IIsWhitelistedProps>(this, props)
+          const { chars } = parseReference<IIsWhitelistedProps>(this, props);
 
-          const result = _isWhitelisted(value, chars)
+          const result = _isWhitelisted(value, chars);
 
           return result
             ? true
             : this.createError({
                 message: intl.formatErrorMessage(
-                  { id: message ?? 'e.y_v.s_must_be_whitelisted' },
+                  { id: message ?? "e.y_v.s_must_be_whitelisted" },
                   {
-                    chars: Array.isArray(chars) ? intl.formatList(chars) : chars,
+                    chars: Array.isArray(chars)
+                      ? intl.formatList(chars)
+                      : chars,
                   }
                 ),
-              })
+              });
         },
-      })
+      });
     }
 
-    return schema
-  }
-}
+    return schema;
+  };
+};

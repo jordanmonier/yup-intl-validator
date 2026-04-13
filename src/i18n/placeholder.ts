@@ -1,17 +1,19 @@
-import { createIntl, IntlShape } from '@formatjs/intl'
+import { createIntl, type IntlShape } from "@formatjs/intl";
 
 export interface IIntlShapeRich<Element> extends IntlShape<Element> {
-  formatErrorMessage: IntlShape<Element>['formatMessage']
+  formatErrorMessage: IntlShape<Element>["formatMessage"];
 }
 
 const intl = createIntl({
-  locale: 'en-US',
+  locale: "en-US",
   fallbackOnEmptyString: true,
-  onError() {},
-})
+  onError() {
+    // NOTHING
+  },
+});
 
 export const DEFAULT_INTL: IIntlShapeRich<string> = {
   ...intl,
   // eslint-disable-next-line jest/unbound-method
   formatErrorMessage: intl.formatMessage,
-}
+};

@@ -1,13 +1,13 @@
-import Big from 'big.js'
+import Big from "big.js";
 
-import { parseReference, TReferenceProps } from '../../..'
-import { INumberProps, TNumberValidatorResult } from '../_types'
+import { parseReference, type TReferenceProps } from "../../..";
+import type { INumberProps, TNumberValidatorResult } from "../_types";
 
 export interface IIsEqualToProps {
   /**
    * The list of authorized values.
    */
-  values: number[]
+  values: number[];
 }
 
 /**
@@ -16,26 +16,28 @@ export interface IIsEqualToProps {
 export const isEqualTo = (
   props: TReferenceProps<IIsEqualToProps> & INumberProps
 ): TNumberValidatorResult => {
-  const { active = true, message } = props ?? {}
+  const { active = true, message } = props ?? {};
 
   return (schema, intl) => {
     if (active) {
       schema = schema.test({
         test(value) {
-          if (typeof value !== 'number') return true
-
-          const { values } = parseReference<IIsEqualToProps>(this, props)
-
-          const whitelist: Big[] = []
-          for (const v of values) {
-            whitelist.push(Big(v))
+          if (typeof value !== "number") {
+            return true;
           }
 
-          let result = false
+          const { values } = parseReference<IIsEqualToProps>(this, props);
+
+          const whitelist: Big[] = [];
+          for (const v of values) {
+            whitelist.push(Big(v));
+          }
+
+          let result = false;
           for (const entry of whitelist) {
             if (entry.eq(value)) {
-              result = true
-              break
+              result = true;
+              break;
             }
           }
 
@@ -43,16 +45,18 @@ export const isEqualTo = (
             ? true
             : this.createError({
                 message: intl.formatErrorMessage(
-                  { id: message ?? 'e.y_v.n_is_equal_to' },
+                  { id: message ?? "e.y_v.n_is_equal_to" },
                   {
-                    values: intl.formatList(values.map((e) => intl.formatNumber(e))),
+                    values: intl.formatList(
+                      values.map((e) => intl.formatNumber(e))
+                    ),
                   }
                 ),
-              })
+              });
         },
-      })
+      });
     }
 
-    return schema
-  }
-}
+    return schema;
+  };
+};

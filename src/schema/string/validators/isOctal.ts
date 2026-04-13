@@ -1,9 +1,9 @@
-import _isOctal from 'validator/lib/isOctal'
+import _isOctal from "validator/lib/isOctal";
 
-import { TReferenceProps } from '../../..'
-import { IStringProps, TStringValidatorResult } from '../_types'
+import type { TReferenceProps } from "../../..";
+import type { IStringProps, TStringValidatorResult } from "../_types";
 
-export interface IIsOctalProps {}
+export type IIsOctalProps = {};
 
 /**
  * Check if the string is a valid octal number.
@@ -11,22 +11,24 @@ export interface IIsOctalProps {}
 export const isOctal = (
   props?: TReferenceProps<IIsOctalProps> & IStringProps
 ): TStringValidatorResult => {
-  const { active = true, message } = props ?? {}
+  const { active = true, message } = props ?? {};
 
   return (schema, intl) => {
     if (active) {
       schema = schema.test({
         test(value) {
-          if (typeof value !== 'string') return true
+          if (typeof value !== "string") {
+            return true;
+          }
 
-          return _isOctal(value)
+          return _isOctal(value);
         },
         message: intl.formatErrorMessage({
-          id: message ?? 'e.y_v.s_must_be_an_octal_number',
+          id: message ?? "e.y_v.s_must_be_an_octal_number",
         }),
-      })
+      });
     }
 
-    return schema
-  }
-}
+    return schema;
+  };
+};

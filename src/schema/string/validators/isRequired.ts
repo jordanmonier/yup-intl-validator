@@ -1,7 +1,7 @@
-import { TReferenceProps } from '../../..'
-import { IStringProps, TStringValidatorResult } from '../_types'
+import type { TReferenceProps } from "../../..";
+import type { IStringProps, TStringValidatorResult } from "../_types";
 
-export interface IIsRequiredProps {}
+export type IIsRequiredProps = {};
 
 /**
  * Check if the `string` is defined. Will also reject `''`.
@@ -9,13 +9,15 @@ export interface IIsRequiredProps {}
 export const isRequired = (
   props?: TReferenceProps<IIsRequiredProps> & IStringProps
 ): TStringValidatorResult => {
-  const { active = true, message } = props ?? {}
+  const { active = true, message } = props ?? {};
 
   return (schema, intl) => {
     if (active) {
-      schema = schema.required(intl.formatErrorMessage({ id: message ?? 'e.y_v.is_required' }))
+      schema = schema.required(
+        intl.formatErrorMessage({ id: message ?? "e.y_v.is_required" })
+      );
     }
 
-    return schema
-  }
-}
+    return schema;
+  };
+};

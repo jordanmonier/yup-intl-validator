@@ -1,19 +1,23 @@
-import { array, i18n, string } from '../../index'
+import { array, i18n, string } from "../../index";
 
 const SCHEMAS: [
   name: string,
-  schema: ReturnType<typeof array['schema']>,
+  schema: ReturnType<(typeof array)["schema"]>,
   valid: unknown[],
-  invalid: unknown[]
+  invalid: unknown[],
 ][] = [
   [
-    'isRequired',
-    array.schema(string.schema(i18n.DEFAULT_INTL), i18n.DEFAULT_INTL, array.isRequired()),
+    "isRequired",
+    array.schema(
+      string.schema(i18n.DEFAULT_INTL),
+      i18n.DEFAULT_INTL,
+      array.isRequired()
+    ),
     [[]],
     [undefined, null],
   ],
   [
-    '!isRequired',
+    "!isRequired",
     array.schema(
       string.schema(i18n.DEFAULT_INTL),
       i18n.DEFAULT_INTL,
@@ -23,29 +27,29 @@ const SCHEMAS: [
     [],
   ],
   [
-    'isEmail',
+    "isEmail",
     array.schema(
       string.schema(i18n.DEFAULT_INTL, string.isRequired(), string.isEmail()),
       i18n.DEFAULT_INTL,
       array.isRequired({ active: false })
     ),
-    [null, [], ['coucou@eapc.be']],
-    [[null], [undefined], [''], ['coucou@']],
+    [null, [], ["coucou@eapc.be"]],
+    [[null], [undefined], [""], ["coucou@"]],
   ],
-]
+];
 
-describe('array validation', () => {
+describe("array validation", () => {
   // eslint-disable-next-line jest/prefer-each
   for (const [name, schema, valid, invalid] of SCHEMAS) {
     // eslint-disable-next-line jest/valid-title, jest/prefer-expect-assertions
     it(name, () => {
       for (const value of valid) {
-        expect(schema.isValidSync(value)).toBe(true)
+        expect(schema.isValidSync(value)).toBe(true);
       }
 
       for (const value of invalid) {
-        expect(schema.isValidSync(value)).toBe(false)
+        expect(schema.isValidSync(value)).toBe(false);
       }
-    })
+    });
   }
-})
+});

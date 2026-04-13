@@ -1,53 +1,55 @@
-import dayjs from 'dayjs'
-import pluginTimezone from 'dayjs/plugin/timezone'
-import pluginUTC from 'dayjs/plugin/utc'
+import dayjs from "dayjs";
+import pluginTimezone from "dayjs/plugin/timezone";
+import pluginUTC from "dayjs/plugin/utc";
 
-import { IDateProps, TDateValidatorResult } from '../_types'
+import type { IDateProps, TDateValidatorResult } from "../_types";
 
-dayjs.extend(pluginUTC)
-dayjs.extend(pluginTimezone)
+dayjs.extend(pluginUTC);
+dayjs.extend(pluginTimezone);
 
 export interface ISubtractProps {
   /**
-   * Unit to be used.
-   */
-  values: [unit: dayjs.ManipulateType, value: number][]
-
-  /**
    * Timezone to be used.
    */
-  timezone?: [tz: string, keepLocalTimes?: boolean]
+  timezone?: [tz: string, keepLocalTimes?: boolean];
+  /**
+   * Unit to be used.
+   */
+  values: [unit: dayjs.ManipulateType, value: number][];
 }
 
 /**
  * Subtract values to the date using `dayjs`.
  */
 export const subtract = (
-  props: ISubtractProps & Omit<IDateProps, 'message'>
+  props: ISubtractProps & Omit<IDateProps, "message">
 ): TDateValidatorResult => {
-  const { values, timezone, active = true } = props ?? {}
+  const { values, timezone, active = true } = props ?? {};
 
   return (schema) => {
     if (active) {
       schema = schema.transform((v) => {
-        let date = dayjs(v)
+        let date = dayjs(v);
 
         if (!date.isValid()) {
-          return v as unknown
+          return v as unknown;
         }
 
         if (timezone) {
-          date = timezone[0] === 'utc' ? date.utc(timezone[1]) : date.tz(timezone[0], timezone[1])
+          date =
+            timezone[0] === "utc"
+              ? date.utc(timezone[1])
+              : date.tz(timezone[0], timezone[1]);
         }
 
         for (const [unit, value] of values) {
-          date = date.subtract(value, unit)
+          date = date.subtract(value, unit);
         }
 
-        return date.toDate()
-      })
+        return date.toDate();
+      });
     }
 
-    return schema
-  }
-}
+    return schema;
+  };
+};

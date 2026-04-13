@@ -1,9 +1,9 @@
-import _isDecimal from 'validator/lib/isDecimal'
+import _isDecimal from "validator/lib/isDecimal";
 
-import { parseReference, TReferenceProps } from '../../..'
-import { IStringProps, TStringValidatorResult } from '../_types'
+import { parseReference, type TReferenceProps } from "../../..";
+import type { IStringProps, TStringValidatorResult } from "../_types";
 
-type TParameters = Parameters<typeof _isDecimal>
+type TParameters = Parameters<typeof _isDecimal>;
 
 export interface IIsDecimalProps {
   /**
@@ -13,7 +13,7 @@ export interface IIsDecimalProps {
     
     Note: decimal_digits is given as a range like `1,3`, a specific value like `3` or min like `1,`.
    */
-  options?: TParameters[1]
+  options?: TParameters[1];
 }
 
 /**
@@ -23,30 +23,32 @@ export interface IIsDecimalProps {
 export const isDecimal = (
   props?: TReferenceProps<IIsDecimalProps> & IStringProps
 ): TStringValidatorResult => {
-  const { active = true, message } = props ?? {}
+  const { active = true, message } = props ?? {};
 
   return (schema, intl) => {
     if (active) {
       schema = schema.test({
         test(value) {
-          if (typeof value !== 'string') return true
+          if (typeof value !== "string") {
+            return true;
+          }
 
-          const { options } = parseReference<IIsDecimalProps>(this, props)
+          const { options } = parseReference<IIsDecimalProps>(this, props);
 
-          const result = _isDecimal(value, options)
+          const result = _isDecimal(value, options);
 
           return result
             ? true
             : this.createError({
                 message: intl.formatErrorMessage(
-                  { id: message ?? 'e.y_v.s_must_be_a_decimal_number' },
+                  { id: message ?? "e.y_v.s_must_be_a_decimal_number" },
                   { ...options }
                 ),
-              })
+              });
         },
-      })
+      });
     }
 
-    return schema
-  }
-}
+    return schema;
+  };
+};

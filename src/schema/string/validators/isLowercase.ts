@@ -1,9 +1,9 @@
-import _isLowercase from 'validator/lib/isLowercase'
+import _isLowercase from "validator/lib/isLowercase";
 
-import { TReferenceProps } from '../../..'
-import { IStringProps, TStringValidatorResult } from '../_types'
+import type { TReferenceProps } from "../../..";
+import type { IStringProps, TStringValidatorResult } from "../_types";
 
-export interface IIsLowercaseProps {}
+export type IIsLowercaseProps = {};
 
 /**
  * Check if the string is lowercase.
@@ -11,22 +11,24 @@ export interface IIsLowercaseProps {}
 export const isLowercase = (
   props?: TReferenceProps<IIsLowercaseProps> & IStringProps
 ): TStringValidatorResult => {
-  const { active = true, message } = props ?? {}
+  const { active = true, message } = props ?? {};
 
   return (schema, intl) => {
     if (active) {
       schema = schema.test({
         test(value) {
-          if (typeof value !== 'string') return true
+          if (typeof value !== "string") {
+            return true;
+          }
 
-          return _isLowercase(value)
+          return _isLowercase(value);
         },
         message: intl.formatErrorMessage({
-          id: message ?? 'e.y_v.s_must_be_lowercase',
+          id: message ?? "e.y_v.s_must_be_lowercase",
         }),
-      })
+      });
     }
 
-    return schema
-  }
-}
+    return schema;
+  };
+};

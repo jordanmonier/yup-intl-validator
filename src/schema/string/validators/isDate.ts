@@ -1,9 +1,9 @@
-import _isDate from 'validator/lib/isDate'
+import _isDate from "validator/lib/isDate";
 
-import { parseReference, TReferenceProps } from '../../..'
-import { IStringProps, TStringValidatorResult } from '../_types'
+import { parseReference, type TReferenceProps } from "../../..";
+import type { IStringProps, TStringValidatorResult } from "../_types";
 
-type TParameters = Parameters<typeof _isDate>
+type TParameters = Parameters<typeof _isDate>;
 
 export interface IIsDateProps {
   /**
@@ -15,7 +15,7 @@ export interface IIsDateProps {
 
      `delimiters` is an array of allowed date delimiters and defaults to `['/', '-']`.
    */
-  options?: TParameters[1]
+  options?: TParameters[1];
 }
 
 /**
@@ -24,23 +24,25 @@ export interface IIsDateProps {
 export const isDate = (
   props?: TReferenceProps<IIsDateProps> & IStringProps
 ): TStringValidatorResult => {
-  const { active = true, message } = props ?? {}
+  const { active = true, message } = props ?? {};
 
   return (schema, intl) => {
     if (active) {
       schema = schema.test({
         test(value) {
-          if (typeof value !== 'string') return true
+          if (typeof value !== "string") {
+            return true;
+          }
 
-          const { options } = parseReference<IIsDateProps>(this, props)
+          const { options } = parseReference<IIsDateProps>(this, props);
 
-          const result = _isDate(value, options)
+          const result = _isDate(value, options);
 
           return result
             ? true
             : this.createError({
                 message: intl.formatErrorMessage(
-                  { id: message ?? 'e.y_v.s_must_be_a_date' },
+                  { id: message ?? "e.y_v.s_must_be_a_date" },
                   {
                     ...options,
                     delimiters: options?.delimiters
@@ -48,11 +50,11 @@ export const isDate = (
                       : undefined,
                   }
                 ),
-              })
+              });
         },
-      })
+      });
     }
 
-    return schema
-  }
-}
+    return schema;
+  };
+};

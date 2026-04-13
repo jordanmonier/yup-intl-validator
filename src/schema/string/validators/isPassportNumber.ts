@@ -1,15 +1,15 @@
-import _isPassportNumber from 'validator/lib/isPassportNumber'
+import _isPassportNumber from "validator/lib/isPassportNumber";
 
-import { parseReference, TReferenceProps } from '../../..'
-import { IStringProps, TStringValidatorResult } from '../_types'
+import { parseReference, type TReferenceProps } from "../../..";
+import type { IStringProps, TStringValidatorResult } from "../_types";
 
-type TParameters = Parameters<typeof _isPassportNumber>
+type TParameters = Parameters<typeof _isPassportNumber>;
 
 export interface IIsPassportNumberProps {
   /**
    * CountryCode is one of [ `AM`, `AR`, `AT`, `AU`, `BE`, `BG`, `BY`, `BR`, `CA`, `CH`, `CN`, `CY`, `CZ`, `DE`, `DK`, `DZ`, `EE`, `ES`, `FI`, `FR`, `GB`, `GR`, `HR`, `HU`, `IE` `IN`, `IR`, `ID`, `IS`, `IT`, `JP`, `KR`, `LT`, `LU`, `LV`, `LY`, `MT`, `MY`, `MZ`, `NL`, `PL`, `PT`, `RO`, `RU`, `SE`, `SL`, `SK`, `TR`, `UA`, `US` ]
    */
-  countryCode?: TParameters[1]
+  countryCode?: TParameters[1];
 }
 
 /**
@@ -18,30 +18,35 @@ export interface IIsPassportNumberProps {
 export const isPassportNumber = (
   props?: TReferenceProps<IIsPassportNumberProps> & IStringProps
 ): TStringValidatorResult => {
-  const { active = true, message } = props ?? {}
+  const { active = true, message } = props ?? {};
 
   return (schema, intl) => {
     if (active) {
       schema = schema.test({
         test(value) {
-          if (typeof value !== 'string') return true
+          if (typeof value !== "string") {
+            return true;
+          }
 
-          const { countryCode } = parseReference<IIsPassportNumberProps>(this, props)
+          const { countryCode } = parseReference<IIsPassportNumberProps>(
+            this,
+            props
+          );
 
-          const result = _isPassportNumber(value, countryCode)
+          const result = _isPassportNumber(value, countryCode);
 
           return result
             ? true
             : this.createError({
                 message: intl.formatErrorMessage(
-                  { id: message ?? 'e.y_v.s_must_be_a_passport_number' },
+                  { id: message ?? "e.y_v.s_must_be_a_passport_number" },
                   { country_code: countryCode }
                 ),
-              })
+              });
         },
-      })
+      });
     }
 
-    return schema
-  }
-}
+    return schema;
+  };
+};

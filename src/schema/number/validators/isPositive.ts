@@ -1,7 +1,7 @@
-import { TReferenceProps } from '../../..'
-import { INumberProps, TNumberValidatorResult } from '../_types'
+import type { TReferenceProps } from "../../..";
+import type { INumberProps, TNumberValidatorResult } from "../_types";
 
-export interface IIsPositiveProps {}
+export type IIsPositiveProps = {};
 
 /**
  * Check if the `number` is positive.
@@ -9,15 +9,15 @@ export interface IIsPositiveProps {}
 export const isPositive = (
   props?: TReferenceProps<IIsPositiveProps> & INumberProps
 ): TNumberValidatorResult => {
-  const { active = true, message } = props ?? {}
+  const { active = true, message } = props ?? {};
 
   return (schema, intl) => {
     if (active) {
       schema = schema.positive(
-        intl.formatErrorMessage({ id: message ?? 'e.y_v.n_must_be_positive' })
-      )
+        intl.formatErrorMessage({ id: message ?? "e.y_v.n_must_be_positive" })
+      );
     }
 
-    return schema
-  }
-}
+    return schema;
+  };
+};

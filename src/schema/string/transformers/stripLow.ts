@@ -1,14 +1,14 @@
-import _stripLow from 'validator/lib/stripLow'
+import _stripLow from "validator/lib/stripLow";
 
-import { IStringProps, TStringValidatorResult } from '../_types'
+import type { IStringProps, TStringValidatorResult } from "../_types";
 
-type TParameters = Parameters<typeof _stripLow>
+type TParameters = Parameters<typeof _stripLow>;
 
 export interface IStripLowProps {
   /**
    * Wether to preserve newline characters (`\n` and `\r`, hex `0xA` and `0xD`).
    */
-  keepNewLines?: TParameters[1]
+  keepNewLines?: TParameters[1];
 }
 
 /**
@@ -17,17 +17,17 @@ export interface IStripLowProps {
  * If `keepNewLines` is set to `true`, newline characters are preserved (`\n` and `\r`, hex `0xA` and `0xD`). Unicode-safe in JavaScript.
  */
 export const stripLow = (
-  props?: IStripLowProps & Omit<IStringProps, 'message'>
+  props?: IStripLowProps & Omit<IStringProps, "message">
 ): TStringValidatorResult => {
-  const { keepNewLines, active = true } = props ?? {}
+  const { keepNewLines, active = true } = props ?? {};
 
   return (schema, intl) => {
     if (active) {
       schema = schema.transform((v: unknown) =>
-        typeof v === 'string' ? _stripLow(v, keepNewLines) : v
-      )
+        typeof v === "string" ? _stripLow(v, keepNewLines) : v
+      );
     }
 
-    return schema
-  }
-}
+    return schema;
+  };
+};

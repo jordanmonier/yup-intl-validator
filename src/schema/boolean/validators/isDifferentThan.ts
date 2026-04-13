@@ -1,11 +1,11 @@
-import { parseReference, TReferenceProps } from '../../..'
-import { IBooleanProps, TBooleanValidatorResult } from '../_types'
+import { parseReference, type TReferenceProps } from "../../..";
+import type { IBooleanProps, TBooleanValidatorResult } from "../_types";
 
 export interface IIsDifferentThanProps {
   /**
    * The list of blacklisted values.
    */
-  values: boolean[]
+  values: boolean[];
 }
 
 /**
@@ -14,37 +14,39 @@ export interface IIsDifferentThanProps {
 export const isDifferentThan = (
   props: TReferenceProps<IIsDifferentThanProps> & IBooleanProps
 ): TBooleanValidatorResult => {
-  const { active = true, message } = props ?? {}
+  const { active = true, message } = props ?? {};
 
   return (schema, intl) => {
     if (active) {
       schema = schema.test({
         test(value) {
-          if (typeof value !== 'boolean') return true
-
-          const { values } = parseReference<IIsDifferentThanProps>(this, props)
-
-          const whitelist = new Set<boolean>()
-          for (const v of values) {
-            whitelist.add(v)
+          if (typeof value !== "boolean") {
+            return true;
           }
 
-          const result = !whitelist.has(value)
+          const { values } = parseReference<IIsDifferentThanProps>(this, props);
+
+          const whitelist = new Set<boolean>();
+          for (const v of values) {
+            whitelist.add(v);
+          }
+
+          const result = !whitelist.has(value);
 
           return result
             ? true
             : this.createError({
                 message: intl.formatErrorMessage(
-                  { id: message ?? 'e.y_v.b_is_different_than' },
+                  { id: message ?? "e.y_v.b_is_different_than" },
                   {
                     values: intl.formatList(values.map((e) => e.toString())),
                   }
                 ),
-              })
+              });
         },
-      })
+      });
     }
 
-    return schema
-  }
-}
+    return schema;
+  };
+};

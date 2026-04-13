@@ -1,36 +1,35 @@
-import { parseReference, TReferenceProps } from '../../..'
-import { IStringProps, TStringValidatorResult } from '../_types'
+import { parseReference, type TReferenceProps } from "../../..";
+import type { IStringProps, TStringValidatorResult } from "../_types";
 
 export interface IIsLengthProps {
   /**
-   * Minimum length of the string.
-   */
-  min?: number
-  /**
-   * Delta added to `min` (eg: you have a `min` of `10` and a `minDelta` of `5`, then the minimal length of the string will be `15`). You can also use negative value. This property is useful when you are using refs.
-   */
-  minDelta?: number
-  /**
-   * Whether the minimal value should be accepted.
-   *
-   * @default true
-   */
-  minIncluded?: boolean
-
-  /**
    * Maximum length of the string.
    */
-  max?: number
+  max?: number;
   /**
    * Delta added to `max` (eg: you have a `max` of `10` and a `maxDelta` of `5`, then the maximal length of the string will be `15`). You can also use negative value. This property is useful when you are using refs.
    */
-  maxDelta?: number
+  maxDelta?: number;
   /**
    * Whether the maximal value should be accepted.
    *
    * @default true
    */
-  maxIncluded?: boolean
+  maxIncluded?: boolean;
+  /**
+   * Minimum length of the string.
+   */
+  min?: number;
+  /**
+   * Delta added to `min` (eg: you have a `min` of `10` and a `minDelta` of `5`, then the minimal length of the string will be `15`). You can also use negative value. This property is useful when you are using refs.
+   */
+  minDelta?: number;
+  /**
+   * Whether the minimal value should be accepted.
+   *
+   * @default true
+   */
+  minIncluded?: boolean;
 }
 
 /**
@@ -39,15 +38,17 @@ export interface IIsLengthProps {
 export const isLength = (
   props?: TReferenceProps<IIsLengthProps> & IStringProps
 ): TStringValidatorResult => {
-  const { active = true, message } = props ?? {}
+  const { active = true, message } = props ?? {};
 
   return (schema, intl) => {
     if (active) {
       schema = schema.test({
         test(value) {
-          if (typeof value !== 'string') return true
+          if (typeof value !== "string") {
+            return true;
+          }
 
-          const { length } = value
+          const { length } = value;
 
           const {
             min,
@@ -56,29 +57,29 @@ export const isLength = (
             max,
             maxDelta,
             maxIncluded = true,
-          } = parseReference<IIsLengthProps>(this, props)
+          } = parseReference<IIsLengthProps>(this, props);
 
-          const minValue = min ? min + (minDelta ?? 0) : undefined
-          const maxValue = max ? max + (maxDelta ?? 0) : undefined
+          const minValue = min ? min + (minDelta ?? 0) : undefined;
+          const maxValue = max ? max + (maxDelta ?? 0) : undefined;
 
           const minValid =
-            typeof minValue === 'number'
+            typeof minValue === "number"
               ? minIncluded
                 ? length >= minValue
                 : length > minValue
-              : true
+              : true;
 
           const maxValid =
-            typeof maxValue === 'number'
+            typeof maxValue === "number"
               ? maxIncluded
                 ? length <= maxValue
                 : length < maxValue
-              : true
+              : true;
 
-          if (!minValid && !maxValid) {
+          if (!(minValid || maxValid)) {
             return this.createError({
               message: intl.formatErrorMessage(
-                { id: message ?? 'e.y_v.s_min_max_length' },
+                { id: message ?? "e.y_v.s_min_max_length" },
                 {
                   min: minValue,
                   min_included: minIncluded,
@@ -86,12 +87,13 @@ export const isLength = (
                   max_included: maxIncluded,
                 }
               ),
-            })
-          } else if (!minValid) {
+            });
+          }
+          if (!minValid) {
             if (!minValid) {
               return this.createError({
                 message: intl.formatErrorMessage(
-                  { id: message ?? 'e.y_v.s_min_length' },
+                  { id: message ?? "e.y_v.s_min_length" },
                   {
                     min: minValue,
                     min_included: minIncluded,
@@ -99,12 +101,12 @@ export const isLength = (
                     max_included: maxIncluded,
                   }
                 ),
-              })
+              });
             }
           } else if (!maxValid) {
             return this.createError({
               message: intl.formatErrorMessage(
-                { id: message ?? 'e.y_v.s_max_length' },
+                { id: message ?? "e.y_v.s_max_length" },
                 {
                   min: minValue ?? -1,
                   min_included: minIncluded,
@@ -112,14 +114,14 @@ export const isLength = (
                   max_included: maxIncluded,
                 }
               ),
-            })
+            });
           }
 
-          return true
+          return true;
         },
-      })
+      });
     }
 
-    return schema
-  }
-}
+    return schema;
+  };
+};

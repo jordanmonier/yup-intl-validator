@@ -1,9 +1,9 @@
-import * as yup from 'yup'
-import { ObjectShape } from 'yup/lib/object'
+import * as yup from "yup";
+import type { ObjectShape } from "yup/lib/object";
 
-import { IIntlShapeRich } from '../../i18n/placeholder'
+import type { IIntlShapeRich } from "../../i18n/placeholder";
 
-import { TObjectValidatorResult } from './_types'
+import type { TObjectValidatorResult } from "./_types";
 
 export const schema = <
   T extends ObjectShape,
@@ -18,17 +18,17 @@ export const schema = <
   let value = yup
     .object<T>()
     .shape(object)
-    .typeError(intl.formatErrorMessage({ id: 'e.y_v.o_type_error' }))
+    .typeError(intl.formatErrorMessage({ id: "e.y_v.o_type_error" }))
     .default(null)
     .nullable()
-    .strict() as yup.ObjectSchema<T>
+    .strict() as yup.ObjectSchema<T>;
 
   for (const validator of validators) {
-    value = validator(value, intl)
+    value = validator(value, intl);
   }
 
-  return value
-}
+  return value;
+};
 
 export const schemaExcludes = <
   T extends ObjectShape = {},
@@ -44,20 +44,20 @@ export const schemaExcludes = <
   let value = yup
     .object<T>()
     .shape(object, excludes)
-    .typeError(intl.formatErrorMessage({ id: 'e.y_v.o_type_error' }))
+    .typeError(intl.formatErrorMessage({ id: "e.y_v.o_type_error" }))
     .default(null)
     .nullable()
-    .strict() as yup.ObjectSchema<T>
+    .strict() as yup.ObjectSchema<T>;
 
   for (const validator of validators) {
-    value = validator(value, intl)
+    value = validator(value, intl);
   }
 
-  return value
-}
+  return value;
+};
 
-export * from './_types'
+export * from "./_types";
 
-export * from './validators/isNullable'
-export * from './validators/isRequired'
-export * from './validators/isOptional'
+export * from "./validators/isNullable";
+export * from "./validators/isOptional";
+export * from "./validators/isRequired";

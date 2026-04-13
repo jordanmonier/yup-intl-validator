@@ -1,9 +1,9 @@
-import * as yup from 'yup'
+import type * as yup from "yup";
 
-import { TReferenceProps } from '../../..'
-import { IArrayProps, TArrayValidatorResult } from '../_types'
+import type { TReferenceProps } from "../../..";
+import type { IArrayProps, TArrayValidatorResult } from "../_types";
 
-export interface IIsRequiredProps {}
+export type IIsRequiredProps = {};
 
 /**
  * Check if the `array` is defined.
@@ -11,15 +11,15 @@ export interface IIsRequiredProps {}
 export const isRequired = <T extends yup.AnySchema>(
   props?: TReferenceProps<IIsRequiredProps> & IArrayProps
 ): TArrayValidatorResult<T> => {
-  const { active = true, message } = props ?? {}
+  const { active = true, message } = props ?? {};
 
   return (schema, intl) => {
     if (active) {
       schema = schema.required(
-        intl.formatErrorMessage({ id: message ?? 'e.y_v.is_required' })
-      ) as yup.ArraySchema<T>
+        intl.formatErrorMessage({ id: message ?? "e.y_v.is_required" })
+      ) as yup.ArraySchema<T>;
     }
 
-    return schema
-  }
-}
+    return schema;
+  };
+};

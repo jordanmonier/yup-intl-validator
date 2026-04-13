@@ -1,9 +1,9 @@
-import _isAscii from 'validator/lib/isAscii'
+import _isAscii from "validator/lib/isAscii";
 
-import { TReferenceProps } from '../../..'
-import { IStringProps, TStringValidatorResult } from '../_types'
+import type { TReferenceProps } from "../../..";
+import type { IStringProps, TStringValidatorResult } from "../_types";
 
-export interface IIsAsciiProps {}
+export type IIsAsciiProps = {};
 
 /**
  * Check if the string contains ASCII chars only.
@@ -11,20 +11,24 @@ export interface IIsAsciiProps {}
 export const isAscii = (
   props?: TReferenceProps<IIsAsciiProps> & IStringProps
 ): TStringValidatorResult => {
-  const { active = true, message } = props ?? {}
+  const { active = true, message } = props ?? {};
 
   return (schema, intl) => {
     if (active) {
       schema = schema.test({
         test(value) {
-          if (typeof value !== 'string') return true
+          if (typeof value !== "string") {
+            return true;
+          }
 
-          return _isAscii(value)
+          return _isAscii(value);
         },
-        message: intl.formatErrorMessage({ id: message ?? 'e.y_v.s_must_be_ascii' }),
-      })
+        message: intl.formatErrorMessage({
+          id: message ?? "e.y_v.s_must_be_ascii",
+        }),
+      });
     }
 
-    return schema
-  }
-}
+    return schema;
+  };
+};

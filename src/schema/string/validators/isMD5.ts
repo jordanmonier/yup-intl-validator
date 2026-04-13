@@ -1,9 +1,9 @@
-import _isMD5 from 'validator/lib/isMD5'
+import _isMD5 from "validator/lib/isMD5";
 
-import { TReferenceProps } from '../../..'
-import { IStringProps, TStringValidatorResult } from '../_types'
+import type { TReferenceProps } from "../../..";
+import type { IStringProps, TStringValidatorResult } from "../_types";
 
-export interface IIsMD5Props {}
+export type IIsMD5Props = {};
 
 /**
  * Check if the string is a MD5 hash.
@@ -11,22 +11,24 @@ export interface IIsMD5Props {}
 export const isMD5 = (
   props?: TReferenceProps<IIsMD5Props> & IStringProps
 ): TStringValidatorResult => {
-  const { active = true, message } = props ?? {}
+  const { active = true, message } = props ?? {};
 
   return (schema, intl) => {
     if (active) {
       schema = schema.test({
         test(value) {
-          if (typeof value !== 'string') return true
+          if (typeof value !== "string") {
+            return true;
+          }
 
-          return _isMD5(value)
+          return _isMD5(value);
         },
         message: intl.formatErrorMessage({
-          id: message ?? 'e.y_v.s_must_be_a_md5_hash',
+          id: message ?? "e.y_v.s_must_be_a_md5_hash",
         }),
-      })
+      });
     }
 
-    return schema
-  }
-}
+    return schema;
+  };
+};

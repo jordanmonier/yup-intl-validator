@@ -1,13 +1,13 @@
-import dayjs from 'dayjs'
+import dayjs from "dayjs";
 
-import { parseReference, TReferenceProps } from '../../..'
-import { IDateProps, TDateValidatorResult } from '../_types'
+import { parseReference, type TReferenceProps } from "../../..";
+import type { IDateProps, TDateValidatorResult } from "../_types";
 
 export interface IIsEqualToProps {
   /**
    * The list of authorized values.
    */
-  values: Date[]
+  values: Date[];
 }
 
 /**
@@ -16,28 +16,30 @@ export interface IIsEqualToProps {
 export const isEqualTo = (
   props: TReferenceProps<IIsEqualToProps> & IDateProps
 ): TDateValidatorResult => {
-  const { active = true, message } = props ?? {}
+  const { active = true, message } = props ?? {};
 
   return (schema, intl) => {
     if (active) {
       schema = schema.test({
         test(value) {
-          const valueObj = dayjs(value)
-          if (!valueObj.isValid()) return true
-
-          const { values } = parseReference<IIsEqualToProps>(this, props)
-
-          const whitelist: dayjs.Dayjs[] = []
-          for (const v of values) {
-            whitelist.push(dayjs(v))
+          const valueObj = dayjs(value);
+          if (!valueObj.isValid()) {
+            return true;
           }
 
-          let result = false
+          const { values } = parseReference<IIsEqualToProps>(this, props);
+
+          const whitelist: dayjs.Dayjs[] = [];
+          for (const v of values) {
+            whitelist.push(dayjs(v));
+          }
+
+          let result = false;
 
           for (const entry of whitelist) {
             if (entry.isSame(valueObj)) {
-              result = true
-              break
+              result = true;
+              break;
             }
           }
 
@@ -45,16 +47,16 @@ export const isEqualTo = (
             ? true
             : this.createError({
                 message: intl.formatErrorMessage(
-                  { id: message ?? 'e.y_v.d_is_equal_to' },
+                  { id: message ?? "e.y_v.d_is_equal_to" },
                   {
                     values: intl.formatList(values.map((e) => e.toString())),
                   }
                 ),
-              })
+              });
         },
-      })
+      });
     }
 
-    return schema
-  }
-}
+    return schema;
+  };
+};

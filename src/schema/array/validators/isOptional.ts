@@ -1,23 +1,23 @@
-import * as yup from 'yup'
+import type * as yup from "yup";
 
-import { TReferenceProps } from '../../..'
-import { IArrayProps, TArrayValidatorResult } from '../_types'
+import type { TReferenceProps } from "../../..";
+import type { IArrayProps, TArrayValidatorResult } from "../_types";
 
-export interface IIsOptionalProps {}
+export type IIsOptionalProps = {};
 
 /**
  * Allow an `array` to be `undefined`.
  */
 export const isOptional = <T extends yup.AnySchema>(
-  props?: TReferenceProps<IIsOptionalProps> & Omit<IArrayProps, 'message'>
+  props?: TReferenceProps<IIsOptionalProps> & Omit<IArrayProps, "message">
 ): TArrayValidatorResult<T> => {
-  const { active = true } = props ?? {}
+  const { active = true } = props ?? {};
 
   return (schema, intl) => {
     if (active) {
-      schema = schema.optional() as yup.ArraySchema<T>
+      schema = schema.optional() as yup.ArraySchema<T>;
     }
 
-    return schema
-  }
-}
+    return schema;
+  };
+};

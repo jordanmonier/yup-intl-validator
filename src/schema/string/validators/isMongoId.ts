@@ -1,9 +1,9 @@
-import _isMongoId from 'validator/lib/isMongoId'
+import _isMongoId from "validator/lib/isMongoId";
 
-import { TReferenceProps } from '../../..'
-import { IStringProps, TStringValidatorResult } from '../_types'
+import type { TReferenceProps } from "../../..";
+import type { IStringProps, TStringValidatorResult } from "../_types";
 
-export interface IIsMongoIdProps {}
+export type IIsMongoIdProps = {};
 
 /**
  * Check if the string is a valid hex-encoded representation of a [MongoDB ObjectId](http://docs.mongodb.org/manual/reference/object-id/).
@@ -11,22 +11,24 @@ export interface IIsMongoIdProps {}
 export const isMongoId = (
   props?: TReferenceProps<IIsMongoIdProps> & IStringProps
 ): TStringValidatorResult => {
-  const { active = true, message } = props ?? {}
+  const { active = true, message } = props ?? {};
 
   return (schema, intl) => {
     if (active) {
       schema = schema.test({
         test(value) {
-          if (typeof value !== 'string') return true
+          if (typeof value !== "string") {
+            return true;
+          }
 
-          return _isMongoId(value)
+          return _isMongoId(value);
         },
         message: intl.formatErrorMessage({
-          id: message ?? 'e.y_v.s_must_be_a_mongo_id',
+          id: message ?? "e.y_v.s_must_be_a_mongo_id",
         }),
-      })
+      });
     }
 
-    return schema
-  }
-}
+    return schema;
+  };
+};

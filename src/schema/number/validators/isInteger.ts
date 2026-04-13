@@ -1,9 +1,9 @@
-import Big from 'big.js'
+import Big from "big.js";
 
-import { TReferenceProps } from '../../..'
-import { INumberProps, TNumberValidatorResult } from '../_types'
+import type { TReferenceProps } from "../../..";
+import type { INumberProps, TNumberValidatorResult } from "../_types";
 
-export interface IIsIntegerProps {}
+export type IIsIntegerProps = {};
 
 /**
  * Check if the number is an integer.
@@ -11,25 +11,29 @@ export interface IIsIntegerProps {}
 export const isInteger = (
   props?: TReferenceProps<IIsIntegerProps> & INumberProps
 ): TNumberValidatorResult => {
-  const { active = true, message } = props ?? {}
+  const { active = true, message } = props ?? {};
 
   return (schema, intl) => {
     if (active) {
       schema = schema.test({
         test(value) {
-          if (typeof value !== 'number') return true
+          if (typeof value !== "number") {
+            return true;
+          }
 
-          const result = Big(value).mod(1).eq(0)
+          const result = Big(value).mod(1).eq(0);
 
           return result
             ? true
             : this.createError({
-                message: intl.formatErrorMessage({ id: message ?? 'e.y_v.n_is_integer' }),
-              })
+                message: intl.formatErrorMessage({
+                  id: message ?? "e.y_v.n_is_integer",
+                }),
+              });
         },
-      })
+      });
     }
 
-    return schema
-  }
-}
+    return schema;
+  };
+};

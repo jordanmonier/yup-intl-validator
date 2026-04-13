@@ -1,25 +1,25 @@
-import { date, i18n } from '../../index'
+import { date, i18n } from "../../index";
 
 const SCHEMAS: [
   name: string,
-  schema: ReturnType<typeof date['schema']>,
+  schema: ReturnType<(typeof date)["schema"]>,
   valid: unknown[],
-  invalid: unknown[]
+  invalid: unknown[],
 ][] = [
   [
-    'isRequired',
+    "isRequired",
     date.schema(i18n.DEFAULT_INTL, date.isRequired()),
-    [new Date(), '1998-01-14'],
+    [new Date(), "1998-01-14"],
     [undefined, null],
   ],
   [
-    '!isRequired',
+    "!isRequired",
     date.schema(i18n.DEFAULT_INTL, date.isRequired({ active: false })),
-    [new Date(), '1998-01-14', null, undefined],
+    [new Date(), "1998-01-14", null, undefined],
     [],
   ],
   [
-    'isMinMax',
+    "isMinMax",
     date.schema(
       i18n.DEFAULT_INTL,
       date.isRequired(),
@@ -32,13 +32,13 @@ const SCHEMAS: [
     [new Date(1998, 0, 13), new Date(1999, 0, 15)],
   ],
   [
-    'isMinMax (delta)',
+    "isMinMax (delta)",
     date.schema(
       i18n.DEFAULT_INTL,
       date.isRequired(),
       date.isMinMax({
         min: new Date(1998, 0, 14),
-        minDelta: [[-1, 'day']],
+        minDelta: [[-1, "day"]],
         max: new Date(1999, 0, 14),
       })
     ),
@@ -46,7 +46,7 @@ const SCHEMAS: [
     [new Date(1998, 0, 12), new Date(1999, 0, 15)],
   ],
   [
-    'isEqualTo',
+    "isEqualTo",
     date.schema(
       i18n.DEFAULT_INTL,
       date.isRequired(),
@@ -54,11 +54,11 @@ const SCHEMAS: [
         values: [new Date(1998, 0, 14)],
       })
     ),
-    ['1998-01-14'],
+    ["1998-01-14"],
     [new Date(), null],
   ],
   [
-    'isDifferentThan',
+    "isDifferentThan",
     date.schema(
       i18n.DEFAULT_INTL,
       date.isRequired(),
@@ -67,49 +67,53 @@ const SCHEMAS: [
       })
     ),
     [new Date()],
-    ['1998-01-14', null],
+    ["1998-01-14", null],
   ],
-]
+];
 
-describe('date validation', () => {
+describe("date validation", () => {
   // eslint-disable-next-line jest/prefer-each
   for (const [name, schema, valid, invalid] of SCHEMAS) {
     // eslint-disable-next-line jest/valid-title, jest/prefer-expect-assertions
     it(name, () => {
       for (const value of valid) {
-        expect(schema.isValidSync(value)).toBe(true)
+        expect(schema.isValidSync(value)).toBe(true);
       }
 
       for (const value of invalid) {
-        expect(schema.isValidSync(value)).toBe(false)
+        expect(schema.isValidSync(value)).toBe(false);
       }
-    })
+    });
   }
 
   // eslint-disable-next-line jest/prefer-expect-assertions
-  it('changing times on timezone (utc)', () => {
+  it("changing times on timezone (utc)", () => {
     const schema = date.schema(
       i18n.DEFAULT_INTL,
       date.isRequired(),
       date.setEndOf({
-        unit: 'day',
-        timezone: ['utc', true],
+        unit: "day",
+        timezone: ["utc", true],
       })
-    )
+    );
 
-    expect(schema.cast('1998-01-14T00:00:00.000Z')?.toISOString()).toBe('1998-01-14T23:59:59.999Z')
-  })
+    expect(schema.cast("1998-01-14T00:00:00.000Z")?.toISOString()).toBe(
+      "1998-01-14T23:59:59.999Z"
+    );
+  });
 
   // eslint-disable-next-line jest/prefer-expect-assertions
-  it('changing times on timezone', () => {
+  it("changing times on timezone", () => {
     const schema = date.schema(
       i18n.DEFAULT_INTL,
       date.isRequired(),
       date.setEndOf({
-        unit: 'day',
+        unit: "day",
       })
-    )
+    );
 
-    expect(schema.cast('1998-01-13T23:00:00.000Z')?.toISOString()).toBe('1998-01-14T22:59:59.999Z')
-  })
-})
+    expect(schema.cast("1998-01-13T23:00:00.000Z")?.toISOString()).toBe(
+      "1998-01-14T22:59:59.999Z"
+    );
+  });
+});

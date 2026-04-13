@@ -1,9 +1,9 @@
-import _isCurrency from 'validator/lib/isCurrency'
+import _isCurrency from "validator/lib/isCurrency";
 
-import { parseReference, TReferenceProps } from '../../..'
-import { IStringProps, TStringValidatorResult } from '../_types'
+import { parseReference, type TReferenceProps } from "../../..";
+import type { IStringProps, TStringValidatorResult } from "../_types";
 
-type TParameters = Parameters<typeof _isCurrency>
+type TParameters = Parameters<typeof _isCurrency>;
 
 export interface IIsCurrencyProps {
   /**
@@ -11,7 +11,7 @@ export interface IIsCurrencyProps {
 
      Note: The array `digits_after_decimal` is filled with the exact number of digits allowed not a range, for example a range 1 to 3 will be given as `[1, 2, 3]`.
    */
-  options?: TParameters[1]
+  options?: TParameters[1];
 }
 
 /**
@@ -20,37 +20,41 @@ export interface IIsCurrencyProps {
 export const isCurrency = (
   props?: TReferenceProps<IIsCurrencyProps> & IStringProps
 ): TStringValidatorResult => {
-  const { active = true, message } = props ?? {}
+  const { active = true, message } = props ?? {};
 
   return (schema, intl) => {
     if (active) {
       schema = schema.test({
         test(value) {
-          if (typeof value !== 'string') return true
+          if (typeof value !== "string") {
+            return true;
+          }
 
-          const { options } = parseReference<IIsCurrencyProps>(this, props)
+          const { options } = parseReference<IIsCurrencyProps>(this, props);
 
-          const result = _isCurrency(value, options)
+          const result = _isCurrency(value, options);
 
           return result
             ? true
             : this.createError({
                 message: intl.formatErrorMessage(
-                  { id: message ?? 'e.y_v.s_must_be_a_currency_amount' },
+                  { id: message ?? "e.y_v.s_must_be_a_currency_amount" },
                   {
                     ...options,
                     digits_after_decimal: options?.digits_after_decimal
                       ? intl.formatList(
-                          options.digits_after_decimal.map((e) => intl.formatNumber(e))
+                          options.digits_after_decimal.map((e) =>
+                            intl.formatNumber(e)
+                          )
                         )
                       : undefined,
                   }
                 ),
-              })
+              });
         },
-      })
+      });
     }
 
-    return schema
-  }
-}
+    return schema;
+  };
+};

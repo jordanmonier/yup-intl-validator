@@ -1,22 +1,24 @@
-import _unescape from 'validator/lib/unescape'
+import _unescape from "validator/lib/unescape";
 
-import { IStringProps, TStringValidatorResult } from '../_types'
+import type { IStringProps, TStringValidatorResult } from "../_types";
 
-export interface IUnescapeProps {}
+export type IUnescapeProps = {};
 
 /**
  * 	Replace HTML encoded entities with `<`, `>`, `&`, `'`, `"` and `/`.
  */
 export const unescape = (
-  props?: IUnescapeProps & Omit<IStringProps, 'message'>
+  props?: IUnescapeProps & Omit<IStringProps, "message">
 ): TStringValidatorResult => {
-  const { active = true } = props ?? {}
+  const { active = true } = props ?? {};
 
   return (schema) => {
     if (active) {
-      schema = schema.transform((v: unknown) => (typeof v === 'string' ? _unescape(v) : v))
+      schema = schema.transform((v: unknown) =>
+        typeof v === "string" ? _unescape(v) : v
+      );
     }
 
-    return schema
-  }
-}
+    return schema;
+  };
+};

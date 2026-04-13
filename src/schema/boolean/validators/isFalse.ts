@@ -1,7 +1,7 @@
-import { TReferenceProps } from '../../..'
-import { IBooleanProps, TBooleanValidatorResult } from '../_types'
+import type { TReferenceProps } from "../../..";
+import type { IBooleanProps, TBooleanValidatorResult } from "../_types";
 
-export interface IIsFalseProps {}
+export type IIsFalseProps = {};
 
 /**
  * Check if the `boolean` is `false`.
@@ -9,13 +9,15 @@ export interface IIsFalseProps {}
 export const isFalse = (
   props?: TReferenceProps<IIsFalseProps> & IBooleanProps
 ): TBooleanValidatorResult => {
-  const { active = true, message } = props ?? {}
+  const { active = true, message } = props ?? {};
 
   return (schema, intl) => {
     if (active) {
-      schema = schema.isFalse(intl.formatErrorMessage({ id: message ?? 'e.y_v.b_is_false' }))
+      schema = schema.isFalse(
+        intl.formatErrorMessage({ id: message ?? "e.y_v.b_is_false" })
+      );
     }
 
-    return schema
-  }
-}
+    return schema;
+  };
+};

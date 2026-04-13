@@ -1,9 +1,9 @@
-import _isLocale from 'validator/lib/isLocale'
+import _isLocale from "validator/lib/isLocale";
 
-import { TReferenceProps } from '../../..'
-import { IStringProps, TStringValidatorResult } from '../_types'
+import type { TReferenceProps } from "../../..";
+import type { IStringProps, TStringValidatorResult } from "../_types";
 
-export interface IIsLocaleProps {}
+export type IIsLocaleProps = {};
 
 /**
  * Check if the string is a locale.
@@ -11,22 +11,24 @@ export interface IIsLocaleProps {}
 export const isLocale = (
   props?: TReferenceProps<IIsLocaleProps> & IStringProps
 ): TStringValidatorResult => {
-  const { active = true, message } = props ?? {}
+  const { active = true, message } = props ?? {};
 
   return (schema, intl) => {
     if (active) {
       schema = schema.test({
         test(value) {
-          if (typeof value !== 'string') return true
+          if (typeof value !== "string") {
+            return true;
+          }
 
-          return _isLocale(value)
+          return _isLocale(value);
         },
         message: intl.formatErrorMessage({
-          id: message ?? 'e.y_v.s_must_be_a_locale',
+          id: message ?? "e.y_v.s_must_be_a_locale",
         }),
-      })
+      });
     }
 
-    return schema
-  }
-}
+    return schema;
+  };
+};

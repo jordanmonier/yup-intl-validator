@@ -1,10 +1,10 @@
-import _isStrongPassword from 'validator/lib/isStrongPassword'
+import _isStrongPassword from "validator/lib/isStrongPassword";
 
-import { parseReference, TReferenceProps } from '../../..'
-import { IStringProps, TStringValidatorResult } from '../_types'
+import { parseReference, type TReferenceProps } from "../../..";
+import type { IStringProps, TStringValidatorResult } from "../_types";
 
 export interface IIsStrongPasswordProps {
-  options?: validator.default.StrongPasswordOptions
+  options?: validator.default.StrongPasswordOptions;
 }
 
 /**
@@ -13,30 +13,38 @@ export interface IIsStrongPasswordProps {
 export const isStrongPassword = (
   props?: TReferenceProps<IIsStrongPasswordProps> & IStringProps
 ): TStringValidatorResult => {
-  const { active = true, message } = props ?? {}
+  const { active = true, message } = props ?? {};
 
   return (schema, intl) => {
     if (active) {
       schema = schema.test({
         test(value) {
-          if (typeof value !== 'string') return true
+          if (typeof value !== "string") {
+            return true;
+          }
 
-          const { options } = parseReference<IIsStrongPasswordProps>(this, props)
+          const { options } = parseReference<IIsStrongPasswordProps>(
+            this,
+            props
+          );
 
-          const result = _isStrongPassword(value, { ...options, returnScore: false })
+          const result = _isStrongPassword(value, {
+            ...options,
+            returnScore: false,
+          });
 
           return result
             ? true
             : this.createError({
                 message: intl.formatErrorMessage(
-                  { id: message ?? 'e.y_v.s_must_be_a_strong_password' },
+                  { id: message ?? "e.y_v.s_must_be_a_strong_password" },
                   { ...options }
                 ),
-              })
+              });
         },
-      })
+      });
     }
 
-    return schema
-  }
-}
+    return schema;
+  };
+};

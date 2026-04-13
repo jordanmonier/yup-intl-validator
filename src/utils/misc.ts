@@ -1,65 +1,68 @@
-import mapKeys from 'lodash.mapkeys'
-import snakeCase from 'lodash.snakecase'
-import * as yup from 'yup'
-import type { Reference, Maybe } from 'yup'
+import mapKeys from "lodash.mapkeys";
+import snakeCase from "lodash.snakecase";
+import type * as yup from "yup";
+import type { Maybe, Reference } from "yup";
 
-import { TReferenceProps } from '../'
-import { IIntlShapeRich } from '../i18n/placeholder'
+import type { TReferenceProps } from "../";
+import type { IIntlShapeRich } from "../i18n/placeholder";
 
-export const getValueFromContext = <T>(context: yup.TestContext, ref: Reference<T>): Maybe<T> => {
-  return context.resolve(ref)
-}
+export const getValueFromContext = <T>(
+  context: yup.TestContext,
+  ref: Reference<T>
+): Maybe<T> => {
+  return context.resolve(ref);
+};
 
 export const parseValue = <T>(
   context: yup.TestContext,
   value: Reference<T> | Maybe<T>
 ): Maybe<T> => {
   if ((value as any)?.__isYupRef === true) {
-    return getValueFromContext(context, value as Reference<T>)
+    return getValueFromContext(context, value as Reference<T>);
   }
 
   if (
-    typeof value === 'string' ||
-    typeof value === 'bigint' ||
-    typeof value === 'boolean' ||
-    typeof value === 'number' ||
-    typeof value === 'undefined' ||
+    typeof value === "string" ||
+    typeof value === "bigint" ||
+    typeof value === "boolean" ||
+    typeof value === "number" ||
+    typeof value === "undefined" ||
     value instanceof RegExp ||
     value instanceof Date ||
     value === null
   ) {
-    return value
+    return value;
   }
 
   if (Array.isArray(value)) {
-    return value.map((e) => parseValue<T>(context, e as T)) as unknown as T
+    return value.map((e) => parseValue<T>(context, e as T)) as unknown as T;
   }
 
-  if (typeof value === 'object') {
-    return parseReference(context, value as unknown as object) as unknown as T
+  if (typeof value === "object") {
+    return parseReference(context, value as unknown as object) as unknown as T;
   }
 
-  return value
-}
+  return value;
+};
 
 export const parseReference = <T extends Maybe<object>>(
   context: yup.TestContext,
   props?: TReferenceProps<T>
 ): T => {
-  const newValue: Partial<T> = {}
+  const newValue: Partial<T> = {};
 
   for (const key in props) {
-    const value = props[key]
+    const value = props[key];
 
     // @ts-expect-error
-    newValue[key] = parseValue(context, value)
+    newValue[key] = parseValue(context, value);
   }
 
-  return { ...(props as T), ...newValue }
-}
+  return { ...(props as T), ...newValue };
+};
 
 export const formatMessageValues = <Element = string>(
-  values: Parameters<IIntlShapeRich<Element>['formatMessage']>[1]
-): Parameters<IIntlShapeRich<Element>['formatMessage']>[1] => {
-  return mapKeys(values, (v, k) => snakeCase(k))
-}
+  values: Parameters<IIntlShapeRich<Element>["formatMessage"]>[1]
+): Parameters<IIntlShapeRich<Element>["formatMessage"]>[1] => {
+  return mapKeys(values, (v, k) => snakeCase(k));
+};

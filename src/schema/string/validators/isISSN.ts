@@ -1,15 +1,15 @@
-import _isISSN from 'validator/lib/isISSN'
+import _isISSN from "validator/lib/isISSN";
 
-import { parseReference, TReferenceProps } from '../../..'
-import { IStringProps, TStringValidatorResult } from '../_types'
+import { parseReference, type TReferenceProps } from "../../..";
+import type { IStringProps, TStringValidatorResult } from "../_types";
 
-type TParameters = Parameters<typeof _isISSN>
+type TParameters = Parameters<typeof _isISSN>;
 
 export interface IIsISSNProps {
   /**
    * Options is an object which defaults to `{ case_sensitive: false, require_hyphen: false }`. If `case_sensitive` is `true`, ISSNs with a lowercase 'x' as the check digit are rejected.
    */
-  options?: TParameters[1]
+  options?: TParameters[1];
 }
 
 /**
@@ -18,30 +18,32 @@ export interface IIsISSNProps {
 export const isISSN = (
   props?: TReferenceProps<IIsISSNProps> & IStringProps
 ): TStringValidatorResult => {
-  const { active = true, message } = props ?? {}
+  const { active = true, message } = props ?? {};
 
   return (schema, intl) => {
     if (active) {
       schema = schema.test({
         test(value) {
-          if (typeof value !== 'string') return true
+          if (typeof value !== "string") {
+            return true;
+          }
 
-          const { options } = parseReference<IIsISSNProps>(this, props)
+          const { options } = parseReference<IIsISSNProps>(this, props);
 
-          const result = _isISSN(value, options)
+          const result = _isISSN(value, options);
 
           return result
             ? true
             : this.createError({
                 message: intl.formatErrorMessage(
-                  { id: message ?? 'e.y_v.s_must_be_an_issn' },
+                  { id: message ?? "e.y_v.s_must_be_an_issn" },
                   { ...options }
                 ),
-              })
+              });
         },
-      })
+      });
     }
 
-    return schema
-  }
-}
+    return schema;
+  };
+};

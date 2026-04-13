@@ -1,9 +1,9 @@
-import _isHSL from 'validator/lib/isHSL'
+import _isHSL from "validator/lib/isHSL";
 
-import { TReferenceProps } from '../../..'
-import { IStringProps, TStringValidatorResult } from '../_types'
+import type { TReferenceProps } from "../../..";
+import type { IStringProps, TStringValidatorResult } from "../_types";
 
-export interface IIsHSLProps {}
+export type IIsHSLProps = {};
 
 /**
  * Check if the string is an HSL (hue, saturation, lightness, optional alpha) color based on CSS Colors Level 4 specification.
@@ -12,22 +12,24 @@ export interface IIsHSLProps {}
 export const isHSL = (
   props?: TReferenceProps<IIsHSLProps> & IStringProps
 ): TStringValidatorResult => {
-  const { active = true, message } = props ?? {}
+  const { active = true, message } = props ?? {};
 
   return (schema, intl) => {
     if (active) {
       schema = schema.test({
         test(value) {
-          if (typeof value !== 'string') return true
+          if (typeof value !== "string") {
+            return true;
+          }
 
-          return _isHSL(value)
+          return _isHSL(value);
         },
         message: intl.formatErrorMessage({
-          id: message ?? 'e.y_v.s_must_be_an_hsl_color',
+          id: message ?? "e.y_v.s_must_be_an_hsl_color",
         }),
-      })
+      });
     }
 
-    return schema
-  }
-}
+    return schema;
+  };
+};

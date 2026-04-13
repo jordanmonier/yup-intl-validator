@@ -1,15 +1,15 @@
-import _isISBN from 'validator/lib/isISBN'
+import _isISBN from "validator/lib/isISBN";
 
-import { parseReference, TReferenceProps } from '../../..'
-import { IStringProps, TStringValidatorResult } from '../_types'
+import { parseReference, type TReferenceProps } from "../../..";
+import type { IStringProps, TStringValidatorResult } from "../_types";
 
-type TParameters = Parameters<typeof _isISBN>
+type TParameters = Parameters<typeof _isISBN>;
 
 export interface IIsISBNProps {
   /**
    * ISBN Version
    */
-  version?: TParameters[1]
+  version?: TParameters[1];
 }
 
 /**
@@ -18,30 +18,32 @@ export interface IIsISBNProps {
 export const isISBN = (
   props?: TReferenceProps<IIsISBNProps> & IStringProps
 ): TStringValidatorResult => {
-  const { active = true, message } = props ?? {}
+  const { active = true, message } = props ?? {};
 
   return (schema, intl) => {
     if (active) {
       schema = schema.test({
         test(value) {
-          if (typeof value !== 'string') return true
+          if (typeof value !== "string") {
+            return true;
+          }
 
-          const { version } = parseReference<IIsISBNProps>(this, props)
+          const { version } = parseReference<IIsISBNProps>(this, props);
 
-          const result = _isISBN(value, version)
+          const result = _isISBN(value, version);
 
           return result
             ? true
             : this.createError({
                 message: intl.formatErrorMessage(
-                  { id: message ?? 'e.y_v.s_must_be_an_isbn' },
+                  { id: message ?? "e.y_v.s_must_be_an_isbn" },
                   { version }
                 ),
-              })
+              });
         },
-      })
+      });
     }
 
-    return schema
-  }
-}
+    return schema;
+  };
+};

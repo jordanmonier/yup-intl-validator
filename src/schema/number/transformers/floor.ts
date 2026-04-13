@@ -1,29 +1,31 @@
-import Big from 'big.js'
+import Big from "big.js";
 
-import { INumberProps, TNumberValidatorResult } from '../_types'
+import type { INumberProps, TNumberValidatorResult } from "../_types";
 
 export interface IFloorProps {
   /**
    * Decimal places.
    */
-  precision: number
+  precision: number;
 }
 
 /**
  * Floor a number to the specified `precision`.
  */
 export const floor = (
-  props: IFloorProps & Omit<INumberProps, 'message'>
+  props: IFloorProps & Omit<INumberProps, "message">
 ): TNumberValidatorResult => {
-  const { precision, active = true } = props ?? {}
+  const { precision, active = true } = props ?? {};
 
   return (schema) => {
     if (active) {
       schema = schema.transform((v: unknown) =>
-        typeof v === 'number' ? Big(v).round(precision, Big.roundDown).toNumber() : v
-      )
+        typeof v === "number"
+          ? Big(v).round(precision, Big.roundDown).toNumber()
+          : v
+      );
     }
 
-    return schema
-  }
-}
+    return schema;
+  };
+};

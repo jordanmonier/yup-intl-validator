@@ -1,8 +1,8 @@
-import * as yup from 'yup'
+import * as yup from "yup";
 
-import { IIntlShapeRich } from '../../i18n/placeholder'
+import type { IIntlShapeRich } from "../../i18n/placeholder";
 
-import { TArrayValidatorResult } from './_types'
+import type { TArrayValidatorResult } from "./_types";
 
 export const schema = <
   T extends yup.AnySchema,
@@ -15,26 +15,24 @@ export const schema = <
 ): yup.ArraySchema<T> => {
   let value = yup
     .array<T>(array)
-    .typeError(intl.formatErrorMessage({ id: 'e.y_v.a_type_error' }))
+    .typeError(intl.formatErrorMessage({ id: "e.y_v.a_type_error" }))
     .default([])
     .nullable()
     // eslint-disable-next-line @typescript-eslint/no-unsafe-return
     .transform((v) => (v === null ? [] : v))
-    .strict() as yup.ArraySchema<T>
+    .strict() as yup.ArraySchema<T>;
 
   for (const validator of validators) {
-    value = validator(value, intl)
+    value = validator(value, intl);
   }
 
-  return value
-}
+  return value;
+};
 
-export * from './_types'
-
-export * from './validators/isLength'
-export * from './validators/isNullable'
-export * from './validators/isRequired'
-export * from './validators/isOptional'
-
-export * from './transformers/order'
-export * from './transformers/customOrder'
+export * from "./_types";
+export * from "./transformers/customOrder";
+export * from "./transformers/order";
+export * from "./validators/isLength";
+export * from "./validators/isNullable";
+export * from "./validators/isOptional";
+export * from "./validators/isRequired";

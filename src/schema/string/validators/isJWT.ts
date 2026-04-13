@@ -1,9 +1,9 @@
-import _isJWT from 'validator/lib/isJWT'
+import _isJWT from "validator/lib/isJWT";
 
-import { TReferenceProps } from '../../..'
-import { IStringProps, TStringValidatorResult } from '../_types'
+import type { TReferenceProps } from "../../..";
+import type { IStringProps, TStringValidatorResult } from "../_types";
 
-export interface IIsJWTProps {}
+export type IIsJWTProps = {};
 
 /**
  * Check if the string is valid JWT token.
@@ -11,22 +11,24 @@ export interface IIsJWTProps {}
 export const isJWT = (
   props?: TReferenceProps<IIsJWTProps> & IStringProps
 ): TStringValidatorResult => {
-  const { active = true, message } = props ?? {}
+  const { active = true, message } = props ?? {};
 
   return (schema, intl) => {
     if (active) {
       schema = schema.test({
         test(value) {
-          if (typeof value !== 'string') return true
+          if (typeof value !== "string") {
+            return true;
+          }
 
-          return _isJWT(value)
+          return _isJWT(value);
         },
         message: intl.formatErrorMessage({
-          id: message ?? 'e.y_v.s_must_be_a_jwt',
+          id: message ?? "e.y_v.s_must_be_a_jwt",
         }),
-      })
+      });
     }
 
-    return schema
-  }
-}
+    return schema;
+  };
+};
